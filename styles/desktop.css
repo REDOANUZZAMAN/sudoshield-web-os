@@ -1,0 +1,1847 @@
+/* Desktop Styling - Garuda Theme */
+
+/* Desktop Icons - Garuda Style */
+#desktop-icons {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    z-index: 10;
+}
+
+/* Single row layout */
+#desktop-icons.icons-single-row {
+    position: fixed;
+    left: 50%;
+    bottom: calc(var(--taskbar-height) + 14px);
+    transform: translateX(-50%);
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 18px;
+    width: auto;
+    max-width: calc(100vw - 40px);
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#desktop-icons.icons-single-row .desktop-icon {
+    width: 70px;
+}
+
+#desktop-icons.icons-single-row.compact .desktop-icon {
+    width: 56px;
+    padding: 8px 4px;
+}
+
+/* Responsive icon container adaptations */
+#desktop-icons.responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(72px,1fr));
+    width: min(420px, 38vw);
+    gap: 18px 14px;
+    padding: 10px 12px 14px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+}
+
+/* Scroll elimination: auto-fit grid now handles layout without scroll */
+
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90px;
+    padding: 15px 10px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    background: transparent;
+    border: none;
+}
+
+.desktop-icon:hover {
+    transform: translateY(-2px) scale(1.05);
+}
+
+.desktop-icon i {
+    font-size: 36px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+}
+
+/* App-specific desktop icon colors */
+.desktop-icon[data-app="browser"] i {
+    color: #4285f4;
+    filter: drop-shadow(0 2px 4px rgba(66, 133, 244, 0.4));
+}
+
+.desktop-icon[data-app="youtube"] i {
+    color: #ff0000;
+    filter: drop-shadow(0 2px 4px rgba(255, 0, 0, 0.4));
+}
+
+.desktop-icon[data-app="facebook"] i {
+    color: #1877f2;
+    filter: drop-shadow(0 2px 4px rgba(24, 119, 242, 0.4));
+}
+
+.desktop-icon[data-app="games"] i {
+    color: #00d4ff;
+    filter: drop-shadow(0 2px 4px rgba(0, 212, 255, 0.4));
+}
+
+.desktop-icon[data-app="terminal"] i {
+    color: #00ff00;
+    filter: drop-shadow(0 2px 4px rgba(0, 255, 0, 0.4));
+}
+
+.desktop-icon[data-app="file-manager"] i {
+    color: #ffa500;
+    filter: drop-shadow(0 2px 4px rgba(255, 165, 0, 0.4));
+}
+
+.desktop-icon[data-app="settings"] i {
+    color: #DC143C;
+    filter: drop-shadow(0 2px 4px rgba(220, 20, 60, 0.4));
+}
+
+.desktop-icon[data-app="canva"] i {
+    color: #FF6B35;
+    filter: drop-shadow(0 2px 4px rgba(255, 107, 53, 0.4));
+}
+
+.desktop-icon:hover i {
+    transform: scale(1.1);
+    filter: 
+        drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8)) 
+        drop-shadow(0 0 8px currentColor);
+    animation: iconPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes iconPulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+.desktop-icon span {
+    font-size: 12px;
+    color: var(--text-primary);
+    text-align: center;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Taskbar - Garuda Glass Style */
+#taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--taskbar-height);
+    background: linear-gradient(90deg, 
+        rgba(10, 10, 10, 0.95) 0%,
+        rgba(20, 15, 25, 0.95) 50%,
+        rgba(10, 10, 10, 0.95) 100%
+    );
+    backdrop-filter: blur(25px);
+    border-top: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 
+        0 -4px 30px rgba(255, 0, 128, 0.4),
+        0 -2px 20px rgba(124, 58, 237, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+#start-menu-button {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+#start-menu-button:hover {
+    background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+    box-shadow: var(--accent-glow);
+}
+
+#start-menu-button i {
+    font-size: 24px;
+    color: var(--text-primary);
+    filter: drop-shadow(0 0 8px var(--accent));
+    transition: all 0.3s ease;
+}
+
+#start-menu-button:hover i {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 0 15px white) drop-shadow(0 0 25px var(--accent));
+    animation: logoSpin 3s linear infinite;
+}
+
+/* Modern Shield SVG Styling */
+#start-menu-button #shield-logo {
+    width: 34px;
+    height: 34px;
+    display: block;
+    filter: drop-shadow(0 0 6px var(--accent));
+    transition: transform .4s cubic-bezier(.4,.14,.2,1), filter .4s;
+}
+#start-menu-button:hover #shield-logo {
+    transform: translateY(-2px) scale(1.06) rotate(-2deg);
+    /* Reduced layered glow intensity */
+    filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 14px var(--accent-tertiary));
+}
+#start-menu-button:active #shield-logo {
+    transform: translateY(0) scale(.95);
+}
+html.accent-pulse #start-menu-button #shield-logo #shield-bg {
+    animation: shieldPulse 5s ease-in-out infinite;
+    transform-origin: center;
+}
+@keyframes shieldPulse {
+    0%,100% { filter: brightness(1) saturate(1); }
+    50% { filter: brightness(1.2) saturate(1.35); }
+}
+
+@keyframes logoSpin {
+    0% { transform: scale(1.2) rotate(5deg); }
+    25% { transform: scale(1.25) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(-5deg); }
+    75% { transform: scale(1.15) rotate(0deg); }
+    100% { transform: scale(1.2) rotate(5deg); }
+}
+
+#taskbar-apps {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 5px;
+}
+
+.taskbar-app {
+    height: 36px;
+    padding: 0 16px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-small);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    max-width: 200px;
+    margin: 0 2px;
+}
+
+.taskbar-app:hover {
+    background: rgba(255, 110, 199, 0.2);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(255, 110, 199, 0.4);
+    transform: translateY(-1px);
+}
+
+.taskbar-app.active {
+    background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+    border-color: var(--accent);
+    box-shadow: var(--accent-glow);
+}
+
+.taskbar-app i {
+    font-size: 14px;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* App-specific icon colors like Garuda */
+.taskbar-app[data-app="browser"] i { color: #4285f4; }
+.taskbar-app[data-app="youtube"] i { color: #ff0000; }
+.taskbar-app[data-app="facebook"] i { color: #1877f2; }
+.taskbar-app[data-app="games"] i { color: #00d4ff; }
+.taskbar-app[data-app="terminal"] i { color: #00ff00; }
+.taskbar-app[data-app="file-manager"] i { color: #ffa500; }
+.taskbar-app[data-app="settings"] i { color: #DC143C; }
+
+.taskbar-app span {
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+#system-tray {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 15px;
+    height: 100%;
+}
+
+.system-icon {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.system-icon:hover {
+    color: var(--accent);
+}
+
+.system-icon i {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+#clock {
+    font-size: 12px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Desktop Widgets */
+#desktop-widgets {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 50; /* keep below app windows but above desktop */
+    pointer-events: none; /* widgets individually re-enable */
+}
+
+/* Separate Clock Widget Container */
+#desktop-clock-widget {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    pointer-events: none;
+}
+
+/* Separate System Widget Container */
+#desktop-system-widget {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.widget-card {
+    min-width: 180px;
+    max-width: 240px;
+    background: rgba(20,20,25,0.60);
+    backdrop-filter: blur(14px) saturate(1.2);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.45), 0 0 8px rgba(255,0,128,0.15);
+    padding: 14px 16px 16px;
+    font-family: inherit;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    pointer-events: auto;
+    cursor: grab;
+    transition: box-shadow .3s, transform .3s, backdrop-filter .3s;
+}
+.widget-card:active { cursor: grabbing; }
+.widget-card:hover {
+    box-shadow: 0 4px 22px rgba(0,0,0,0.55), 0 0 10px rgba(255,0,128,0.25);
+}
+.widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    opacity: .85;
+}
+.widget-header span { font-weight: 600; }
+.widget-drag-handle { font-size: 10px; opacity: .5; }
+
+.widget-clock .time {
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+.widget-clock .date {
+    font-size: 12px;
+    letter-spacing: .5px;
+    opacity: .8;
+}
+
+.widget-weather .temp-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+.widget-weather .temp {
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1;
+}
+.widget-weather .condition {
+    font-size: 12px;
+    opacity: .8;
+}
+.widget-weather .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 11px;
+    opacity: .75;
+}
+/* Modern System Widget - Top Center - PREMIUM */
+.widget-modern-system {
+    width: auto;
+    min-width: 500px;
+    max-width: 95vw;
+    height: auto;
+    min-height: auto;
+    background: rgba(20, 20, 30, 0.4);
+    backdrop-filter: blur(30px) saturate(150%);
+    -webkit-backdrop-filter: blur(30px) saturate(150%);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    box-shadow: 
+        0 20px 60px rgba(0,0,0,0.25),
+        0 10px 30px rgba(0,0,0,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: visible;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+
+.widget-modern-system:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 25px 70px rgba(0,0,0,0.3),
+        0 15px 35px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.25);
+    background: rgba(20, 20, 30, 0.5);
+}
+
+.widget-modern-system .widget-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px 20px 0 0;
+    padding: 8px 16px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.widget-modern-system .widget-header span {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.95);
+    text-shadow: 0 2px 8px rgba(255,0,128,0.3), 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.widget-modern-system .system-body {
+    padding: 14px 20px 16px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.widget-modern-system .system-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: nowrap;
+    width: 100%;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.widget-modern-system .system-stat {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    transition: transform 0.3s ease;
+    min-width: 68px;
+    max-width: 68px;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.widget-modern-system .system-stat:hover {
+    transform: translateY(-2px);
+}
+
+/* Uptime stat special styling */
+.widget-modern-system .uptime-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 68px;
+    max-width: 68px;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.widget-modern-system .stat-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    min-width: 68px;
+    width: 68px;
+    height: 68px;
+    justify-content: center;
+}
+
+.widget-modern-system .stat-info i {
+    font-size: 20px;
+    color: #45B7D1;
+    filter: drop-shadow(0 2px 6px rgba(69, 183, 209, 0.5));
+}
+
+.widget-modern-system .stat-info .stat-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+.widget-modern-system .stat-circle {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    background: transparent;
+}
+
+.widget-modern-system .stat-ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    background: transparent;
+}
+
+.widget-modern-system .stat-ring-bg {
+    fill: none;
+    stroke: rgba(255,255,255,0.05);
+    stroke-width: 3;
+}
+
+.widget-modern-system .stat-ring-fill {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: none;
+}
+
+.widget-modern-system .cpu-ring {
+    stroke: #FF6B6B;
+    filter: none;
+}
+
+.widget-modern-system .gpu-ring {
+    stroke: #9B59B6;
+    filter: none;
+}
+
+.widget-modern-system .ram-ring {
+    stroke: #45B7D1;
+    filter: none;
+}
+
+.widget-modern-system .temp-ring {
+    stroke: #F7DC6F;
+    filter: none;
+}
+
+.widget-modern-system .stat-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+}
+
+.widget-modern-system .stat-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6), 0 0 15px currentColor;
+    letter-spacing: -0.3px;
+}
+
+.widget-modern-system .stat-label {
+    font-size: 8px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    text-align: center;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Modern Weather Widget */
+.widget-modern-weather {
+    min-width: 280px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    box-shadow: 
+        0 15px 35px rgba(0,0,0,0.1),
+        0 5px 15px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.widget-modern-weather:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.15),
+        0 8px 25px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.widget-modern-weather .widget-header {
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px 20px 0 0;
+    backdrop-filter: blur(10px);
+}
+
+.widget-modern-weather .widget-header span {
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.widget-modern-weather .weather-body {
+    padding: 20px;
+}
+
+.widget-modern-weather .weather-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.widget-modern-weather .weather-temp {
+    font-size: 36px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #4ECDC4, #44A08D);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    letter-spacing: -2px;
+    transition: transform 0.3s ease;
+}
+
+.widget-modern-weather .weather-icon {
+    font-size: 32px;
+    color: rgba(255,255,255,0.8);
+    animation: weather-float 3s ease-in-out infinite;
+}
+
+@keyframes weather-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+.widget-modern-weather .weather-condition {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.widget-modern-weather .weather-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.widget-modern-weather .weather-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.2s ease;
+}
+
+.widget-modern-weather .weather-detail:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-1px);
+}
+
+.widget-modern-weather .weather-detail i {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+}
+
+.widget-modern-weather .weather-detail span {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+}
+
+.widget-modern-weather .weather-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.widget-modern-weather .weather-location i {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+}
+
+.widget-modern-weather .weather-location span {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+}
+
+/* Compact merged clock+weather mode */
+.widget-clock.widget-compact { min-width:260px; }
+.widget-clock.widget-compact .compact-line { font-size:14px; letter-spacing:.5px; opacity:.9; }
+.widget-clock.widget-compact + .widget-weather.widget-compact { display:none !important; }
+
+/* Dynamic Clock Widget - Modern Design */
+.widget-dynamic-clock {
+    min-width: 280px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    box-shadow: 
+        0 15px 35px rgba(0,0,0,0.1),
+        0 5px 15px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.widget-dynamic-clock:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.15),
+        0 8px 25px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.widget-dynamic-clock::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.widget-dynamic-clock .widget-header {
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px 20px 0 0;
+    backdrop-filter: blur(10px);
+}
+
+.widget-dynamic-clock .widget-header span {
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.widget-dynamic-clock .clock-body {
+    padding: 10px 20px 20px 20px;
+    position: relative;
+}
+
+.widget-dynamic-clock .dynamic-time {
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(135deg, var(--accent), #fff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 20px 0 10px 0;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.widget-dynamic-clock .dynamic-time::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    border-radius: 1px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: translateX(-50%) scaleX(0.8); }
+    50% { opacity: 1; transform: translateX(-50%) scaleX(1); }
+}
+
+.widget-dynamic-clock .dynamic-date {
+    font-size: 14px;
+    text-align: center;
+    color: rgba(255,255,255,0.9);
+    margin: 0 0 15px 0;
+    font-weight: 600;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.widget-dynamic-clock .dynamic-timezone {
+    font-size: 11px;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    margin: 0 0 20px 0;
+    font-weight: 500;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.widget-footer {
+    margin-top: 4px;
+    font-size: 10px;
+    opacity: .45;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Responsive Widget Positioning */
+
+/* Large screens (1440px+) - Default positioning */
+@media (min-width: 1440px) {
+    .widget-dynamic-clock,
+    .widget-modern-weather {
+        min-width: 280px;
+    }
+    .widget-modern-system {
+        width: 320px;
+    }
+}
+
+/* Medium screens (1024px - 1439px) */
+@media (max-width: 1439px) and (min-width: 1024px) {
+    .widget-dynamic-clock,
+    .widget-modern-weather {
+        min-width: 260px;
+    }
+    .widget-modern-system {
+        width: 300px;
+    }
+    .widget-dynamic-clock .dynamic-time {
+        font-size: 28px;
+    }
+    .widget-modern-weather .weather-temp {
+        font-size: 32px;
+    }
+}
+
+/* Small screens (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .widget-dynamic-clock,
+    .widget-modern-weather {
+        min-width: 240px;
+        transform: scale(0.9);
+    }
+    .widget-modern-system {
+        width: 280px;
+        transform: scale(0.9);
+        transform-origin: center top;
+    }
+    .widget-modern-system:hover {
+        transform: translateX(-50%) translateY(-2px) scale(0.9);
+    }
+    .widget-dynamic-clock .dynamic-time {
+        font-size: 24px;
+    }
+    .widget-modern-weather .weather-temp {
+        font-size: 28px;
+    }
+}
+
+/* Mobile landscape (480px - 767px) */
+@media (max-width: 767px) and (min-width: 480px) {
+    .widget-dynamic-clock,
+    .widget-modern-weather {
+        min-width: 200px;
+        transform: scale(0.8);
+        transform-origin: top left;
+    }
+    .widget-modern-system {
+        width: 240px;
+        height: 100px;
+        transform: scale(0.8);
+        transform-origin: center top;
+    }
+    .widget-modern-system:hover {
+        transform: translateX(-50%) translateY(-2px) scale(0.8);
+    }
+    .widget-dynamic-clock .dynamic-time {
+        font-size: 20px;
+    }
+    .widget-modern-weather .weather-temp {
+        font-size: 24px;
+    }
+    .widget-modern-system .system-stats {
+        gap: 10px;
+    }
+    .widget-modern-system .stat-circle {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Mobile portrait (320px - 479px) */
+@media (max-width: 479px) {
+    .widget-dynamic-clock,
+    .widget-modern-weather {
+        min-width: 180px;
+        transform: scale(0.7);
+        transform-origin: top left;
+    }
+    .widget-modern-system {
+        width: 200px;
+        height: 90px;
+        transform: scale(0.7);
+        transform-origin: center top;
+    }
+    .widget-modern-system:hover {
+        transform: translateX(-50%) translateY(-2px) scale(0.7);
+    }
+    .widget-dynamic-clock .dynamic-time {
+        font-size: 18px;
+    }
+    .widget-modern-weather .weather-temp {
+        font-size: 20px;
+    }
+    .widget-modern-weather .weather-details {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .widget-modern-system .system-stats {
+        gap: 8px;
+    }
+    .widget-modern-system .stat-circle {
+        width: 40px;
+        height: 40px;
+    }
+    .widget-modern-system .stat-value {
+        font-size: 10px;
+    }
+    .widget-modern-system .stat-label {
+        font-size: 7px;
+    }
+}
+
+/* Ultrawide screens (21:9 aspect ratio) */
+@media (min-aspect-ratio: 21/9) {
+    .widget-modern-system {
+        width: 400px;
+    }
+    .widget-modern-system .system-stats {
+        gap: 25px;
+    }
+}
+
+/* Tall screens (portrait orientation on tablets) */
+@media (max-aspect-ratio: 4/5) {
+    #desktop-clock-widget {
+        top: 10px;
+        left: 10px;
+    }
+    #desktop-system-widget {
+        top: 10px;
+    }
+}
+
+/* Very small screens - stack widgets vertically */
+@media (max-width: 360px) {
+    .widget-dynamic-clock,
+    .widget-modern-weather {
+        min-width: 160px;
+        transform: scale(0.6);
+    }
+    .widget-modern-system {
+        width: 180px;
+        height: 80px;
+        transform: scale(0.6);
+    }
+    .widget-modern-system:hover {
+        transform: translateX(-50%) translateY(-2px) scale(0.6);
+    }
+    .widget-modern-weather .weather-body {
+        padding: 15px 10px;
+    }
+    .widget-dynamic-clock .clock-body {
+        padding: 5px 15px 15px 15px;
+    }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .widget-card {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Landscape phone orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+    .widget-dynamic-clock,
+    .widget-modern-weather {
+        transform: scale(0.8);
+    }
+    .widget-modern-system {
+        height: 80px;
+        transform: scale(0.8);
+    }
+    .widget-modern-system:hover {
+        transform: translateX(-50%) translateY(-2px) scale(0.8);
+    }
+}
+
+/* Container responsiveness */
+@media (max-width: 1200px) {
+    #desktop-widgets {
+        right: 15px;
+        top: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    #desktop-widgets {
+        right: 10px;
+        top: 10px;
+        gap: 10px;
+    }
+}
+
+/* Flexible font sizing */
+@media (max-width: 600px) {
+    .widget-card .widget-header span {
+        font-size: 11px;
+    }
+    .widget-modern-weather .weather-condition {
+        font-size: 14px;
+    }
+    .widget-modern-weather .weather-detail span {
+        font-size: 12px;
+    }
+}
+
+/* Start Menu - Garuda Glass Style */
+#start-menu {
+    position: fixed;
+    bottom: var(--taskbar-height);
+    left: 15px;
+    width: 350px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    box-shadow: 0 0 40px var(--shadow);
+    z-index: 1001;
+}
+
+.start-menu-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--glass-border);
+    background: var(--gradient-glass);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    position: relative;
+}
+
+.start-menu-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    opacity: 0.1;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.start-menu-header h3 {
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    /* Further reduced glow */
+    text-shadow: 0 0 2px rgba(255,0,128,0.6);
+}
+
+.start-menu-apps {
+    padding: 10px 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.start-menu-item {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: var(--border-radius-small);
+    margin: 4px 8px;
+}
+
+.start-menu-item:hover {
+    background: var(--gradient-glass);
+    border-left: 3px solid var(--accent);
+    padding-left: 17px; /* net similar layout while adjusting border */
+    transform: translateX(6px);
+    /* Reduced hover glow */
+    box-shadow:
+        0 0 6px rgba(255,0,128,0.18),
+        inset 0 0 6px rgba(255,0,128,0.05);
+}
+
+.start-menu-item i {
+    font-size: 20px;
+    color: var(--accent);
+    width: 24px;
+    /* Reduced icon glow */
+    filter: drop-shadow(0 0 3px rgba(255,0,128,0.6));
+    transition: all 0.25s ease;
+}
+
+.start-menu-item:hover i {
+    color: var(--text-primary);
+    filter: drop-shadow(0 0 5px rgba(255,0,128,0.5));
+    transform: scale(1.06);
+}
+
+.start-menu-item span {
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Context Menu */
+.context-menu {
+    position: fixed;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 4px 4px 20px var(--shadow);
+    z-index: 1002;
+    min-width: 150px;
+}
+
+.context-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.context-menu li {
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-primary);
+    transition: background-color 0.2s;
+}
+
+.context-menu li:hover {
+    background: var(--accent);
+}
+
+/* Settings Toggles Effects */
+html.no-animations * {
+    transition: none !important;
+    animation: none !important;
+}
+
+html.no-transparency .window,
+html.no-transparency #taskbar,
+html.no-transparency #start-menu,
+html.no-transparency .context-menu {
+    background: var(--bg-primary) !important;
+    backdrop-filter: none !important;
+}
+
+#desktop.no-blur #wallpaper {
+    filter: none !important;
+}
+
+/* Ensure wallpaper base styling exists */
+#wallpaper[class*="wallpaper-"] {
+    position: absolute;
+    inset: 0;
+}
+
+/* ================= Responsive Layout ================= */
+html.viewport-compact #taskbar {
+    --taskbar-height: 44px;
+    height: var(--taskbar-height);
+}
+html.viewport-compact #desktop-icons {
+    top: 20px;
+    left: 15px;
+    gap: 18px;
+}
+html.viewport-compact .desktop-icon {
+    width: 70px;
+    padding: 10px 6px;
+}
+
+html.viewport-mobile #desktop-icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(64px,1fr));
+    width: calc(100% - 30px);
+    max-height: 180px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 12px;
+}
+html.viewport-mobile .desktop-icon span { display:none; }
+html.viewport-mobile .desktop-icon i { font-size:28px; }
+
+html.viewport-mobile #taskbar { --taskbar-height: 46px; height: var(--taskbar-height); }
+html.viewport-mobile #system-tray { display:none; }
+html.viewport-mobile #start-menu { left:0; width:100%; border-radius:0; }
+html.viewport-mobile .start-menu-item { margin:2px 4px; }
+html.viewport-mobile .window { border-radius:0 !important; min-width:100% !important; min-height: calc(100% - var(--taskbar-height)) !important; }
+html.viewport-mobile .window-header { height:42px; padding:0 12px; }
+html.viewport-mobile .window-content { height: calc(100% - 42px); }
+
+/* Breakpoint-based adjustments */
+@media (max-width: 1100px) {
+    #taskbar { height: 44px; }
+    .taskbar-app span { display:none; }
+    .taskbar-app { padding:0 10px; }
+}
+@media (max-width: 780px) {
+    .taskbar-app { height:40px; }
+    #desktop-icons { gap:16px; }
+}
+@media (max-width: 640px) {
+    #desktop-icons { top: 12px; left:12px; }
+}
+
+/* Animated / Dynamic Wallpapers */
+#wallpaper.wallpaper-aurora {
+    background: radial-gradient(circle at 20% 30%, rgba(255,110,199,0.25), transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(140,123,255,0.25), transparent 55%),
+                linear-gradient(135deg, #0d0f1a, #1d1330 60%, #081421) !important;
+    animation: auroraDrift 18s ease-in-out infinite alternate;
+    background-size: 140% 140% !important;
+    filter: blur(0px) brightness(1.05);
+}
+
+#wallpaper.wallpaper-matrix {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0,255,128,0.05) 0px,
+        rgba(0,255,128,0.05) 2px,
+        transparent 2px,
+        transparent 4px
+    ), linear-gradient(145deg, #020a05,#041e0f 70%, #020a05) !important;
+    position: relative;
+    overflow: hidden;
+}
+#wallpaper.wallpaper-matrix::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to top,
+        rgba(0,255,128,0.15) 0px,
+        rgba(0,255,128,0.15) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+    animation: matrixScroll 7s linear infinite;
+    mix-blend-mode: lighten;
+    opacity: .6;
+}
+
+#wallpaper.wallpaper-pulse {
+    background: radial-gradient(circle at 50% 50%, rgba(255,110,199,0.35), transparent 65%),
+                linear-gradient(120deg, #120016, #190028 45%, #00141c) !important;
+    animation: pulseGlow 6s ease-in-out infinite;
+}
+
+@keyframes auroraDrift {
+    0% { background-position: 0% 50%, 100% 50%, 0% 0%; }
+    50% { background-position: 50% 60%, 60% 40%, 50% 50%; }
+    100% { background-position: 80% 50%, 0% 50%, 100% 100%; }
+}
+@keyframes matrixScroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-200px); }
+}
+@keyframes pulseGlow {
+    0% { filter: brightness(0.9) saturate(1); }
+    50% { filter: brightness(1.1) saturate(1.2); }
+    100% { filter: brightness(0.9) saturate(1); }
+}
+
+/* New Animated Wallpapers */
+#wallpaper.wallpaper-wave {
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(255,255,255,0.08) 50px,
+                    transparent 100px
+                ) !important;
+    animation: waveFlow 12s ease-in-out infinite;
+    background-size: 100% 100%, 400% 100% !important;
+}
+
+#wallpaper.wallpaper-cosmic {
+    background: radial-gradient(circle at 30% 20%, rgba(255,107,107,0.3), transparent 40%),
+                radial-gradient(circle at 70% 80%, rgba(72,187,120,0.25), transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(99,102,241,0.2), transparent 60%),
+                linear-gradient(135deg, #0c0c0c, #1a1625 50%, #0f0f23);
+    animation: cosmicDrift 20s ease-in-out infinite alternate;
+    background-size: 200% 200%, 180% 180%, 160% 160%, 100% 100%;
+}
+
+#wallpaper.wallpaper-neon {
+    background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5),
+                radial-gradient(circle at 25% 75%, rgba(255,0,110,0.4), transparent 50%),
+                radial-gradient(circle at 75% 25%, rgba(58,134,255,0.3), transparent 50%);
+    animation: neonShift 8s linear infinite, neonGlow 4s ease-in-out infinite alternate;
+    background-size: 400% 400%, 150% 150%, 150% 150%;
+}
+
+#wallpaper.wallpaper-synthwave {
+    background: linear-gradient(180deg, #ff0080 0%, #7928ca 50%, #ff0080 100%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(255,255,255,0.1) 2px,
+                    transparent 4px,
+                    transparent 20px
+                );
+    position: relative;
+    animation: synthwaveGrid 10s linear infinite;
+    background-size: 100% 100%, 100% 40px;
+}
+
+#wallpaper.wallpaper-synthwave::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        rgba(255,0,128,0.15) 1px,
+        transparent 2px,
+        transparent 60px
+    );
+    animation: synthwaveScan 6s linear infinite;
+}
+
+#wallpaper.wallpaper-vortex {
+    background: conic-gradient(from 0deg at 50% 50%, 
+                #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #ff6b6b);
+    animation: vortexSpin 15s linear infinite;
+    background-size: 200% 200%;
+    filter: blur(1px) brightness(0.8);
+}
+
+#wallpaper.wallpaper-glitch {
+    background: linear-gradient(45deg, #000, #ff0040, #000, #00ff41, #000),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0px,
+                    rgba(255,0,64,0.1) 2px,
+                    transparent 4px,
+                    transparent 8px
+                );
+    animation: glitchEffect 0.8s steps(10) infinite alternate, 
+               glitchShift 4s ease-in-out infinite;
+    background-size: 200% 200%, 50px 50px;
+}
+
+/* Animation Keyframes for New Wallpapers */
+@keyframes waveFlow {
+    0% { background-position: 0% 0%, 0% 0%; }
+    50% { background-position: 0% 0%, 100% 0%; }
+    100% { background-position: 0% 0%, 200% 0%; }
+}
+
+@keyframes cosmicDrift {
+    0% { 
+        background-position: 0% 20%, 100% 80%, 50% 50%, 0% 0%;
+        filter: brightness(0.9);
+    }
+    50% { 
+        background-position: 70% 60%, 30% 40%, 80% 20%, 50% 50%;
+        filter: brightness(1.1);
+    }
+    100% { 
+        background-position: 100% 80%, 0% 20%, 20% 80%, 100% 100%;
+        filter: brightness(0.9);
+    }
+}
+
+@keyframes neonShift {
+    0% { background-position: 0% 50%, 0% 0%, 100% 100%; }
+    25% { background-position: 100% 50%, 50% 50%, 0% 0%; }
+    50% { background-position: 200% 50%, 100% 100%, 50% 50%; }
+    75% { background-position: 300% 50%, 50% 50%, 100% 100%; }
+    100% { background-position: 400% 50%, 0% 0%, 0% 0%; }
+}
+
+@keyframes neonGlow {
+    0% { filter: brightness(1) saturate(1.2); }
+    100% { filter: brightness(1.2) saturate(1.5); }
+}
+
+@keyframes synthwaveGrid {
+    0% { background-position: 0% 0%, 0% 0%; }
+    100% { background-position: 0% 0%, 0% -40px; }
+}
+
+@keyframes synthwaveScan {
+    0% { transform: translateY(100%); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-100%); opacity: 0; }
+}
+
+@keyframes vortexSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes glitchEffect {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-2px); }
+    40% { transform: translateX(2px); }
+    60% { transform: translateX(-1px); }
+    80% { transform: translateX(1px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes glitchShift {
+    0% { background-position: 0% 0%, 0% 0%; }
+    25% { background-position: 50% 25%, 25% 25%; }
+    50% { background-position: 100% 50%, 50% 50%; }
+    75% { background-position: 150% 75%, 75% 75%; }
+    100% { background-position: 200% 100%, 100% 100%; }
+}
+
+/* Matrix Rain Effect */
+#wallpaper.wallpaper-rain {
+    background: linear-gradient(180deg, #000810 0%, #001a00 50%, #000810 100%) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+#wallpaper.wallpaper-rain::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    height: 200%;
+    background-image: 
+        linear-gradient(transparent 70%, rgba(0,255,65,0.8) 70.5%, rgba(0,255,65,0.8) 71%, transparent 71.5%),
+        linear-gradient(transparent 75%, rgba(0,255,65,0.6) 75.5%, rgba(0,255,65,0.6) 76%, transparent 76.5%),
+        linear-gradient(transparent 80%, rgba(0,255,65,0.9) 80.5%, rgba(0,255,65,0.9) 81%, transparent 81.5%),
+        linear-gradient(transparent 65%, rgba(0,255,65,0.4) 65.5%, rgba(0,255,65,0.4) 66%, transparent 66.5%),
+        linear-gradient(transparent 55%, rgba(0,255,65,0.3) 55.5%, rgba(0,255,65,0.3) 56%, transparent 56.5%),
+        linear-gradient(transparent 88%, rgba(0,255,65,0.7) 88.5%, rgba(0,255,65,0.7) 89%, transparent 89.5%);
+    background-size: 7px 50px, 11px 80px, 13px 60px, 9px 40px, 5px 30px, 17px 100px;
+    background-repeat: repeat-x;
+    animation: matrixRain1 3s linear infinite;
+    opacity: 0.9;
+}
+
+#wallpaper.wallpaper-rain::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    height: 200%;
+    background-image: 
+        linear-gradient(transparent 60%, rgba(0,255,65,0.7) 60.5%, rgba(0,255,65,0.7) 61%, transparent 61.5%),
+        linear-gradient(transparent 85%, rgba(0,255,65,0.5) 85.5%, rgba(0,255,65,0.5) 86%, transparent 86.5%),
+        linear-gradient(transparent 72%, rgba(0,255,65,0.8) 72.5%, rgba(0,255,65,0.8) 73%, transparent 73.5%),
+        linear-gradient(transparent 45%, rgba(0,255,65,0.4) 45.5%, rgba(0,255,65,0.4) 46%, transparent 46.5%),
+        linear-gradient(transparent 92%, rgba(0,255,65,0.6) 92.5%, rgba(0,255,65,0.6) 93%, transparent 93.5%);
+    background-size: 15px 70px, 19px 90px, 23px 110px, 12px 55px, 21px 85px;
+    background-repeat: repeat-x;
+    animation: matrixRain2 4s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes matrixRain1 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+}
+
+@keyframes matrixRain2 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+}
+
+/* Demon Slayer Theme - Tanjiro Kamado */
+#wallpaper.wallpaper-demonslayer {
+    background: linear-gradient(135deg, 
+        #1a0d0d 0%,
+        #2d1414 20%,
+        #1a0d0d 40%,
+        #0d0a0a 60%,
+        #1a0d0d 80%,
+        #000000 100%
+    );
+    background-size: 400% 400%;
+    animation: demonSlayerShift 20s ease infinite;
+    animation-play-state: running;
+    will-change: background-position;
+    overflow: hidden;
+}
+
+/* Tanjiro Character Silhouette */
+#wallpaper.wallpaper-demonslayer::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 15%;
+    width: 300px;
+    height: 400px;
+    background: linear-gradient(180deg, 
+        transparent 0%,
+        rgba(0, 0, 0, 0.4) 20%,
+        rgba(0, 0, 0, 0.6) 40%,
+        rgba(20, 10, 10, 0.8) 60%,
+        rgba(30, 15, 15, 0.9) 100%
+    );
+    clip-path: polygon(
+        50% 0%,
+        45% 15%, 55% 15%,
+        40% 30%, 60% 30%,
+        35% 45%, 65% 45%,
+        30% 60%, 70% 60%,
+        25% 75%, 75% 75%,
+        20% 90%, 80% 90%,
+        15% 100%, 85% 100%
+    );
+    animation: tanjiroStance 8s ease-in-out infinite;
+    animation-play-state: running;
+    will-change: transform, opacity;
+    opacity: 0.6;
+    filter: blur(1px);
+    z-index: 1;
+}
+
+/* Water Breathing Effect */
+#wallpaper.wallpaper-demonslayer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(64, 156, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(0, 191, 255, 0.12) 0%, transparent 35%),
+        radial-gradient(circle at 40% 80%, rgba(30, 144, 255, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 70% 20%, rgba(100, 180, 255, 0.1) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(70, 160, 255, 0.08) 0%, transparent 50%);
+    animation: waterBreathing 15s ease-in-out infinite;
+    animation-play-state: running;
+    will-change: transform, opacity;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Hanafuda Earring Particles */
+@keyframes hanafudaFloat {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(-100px, -200px) rotate(180deg) scale(1.2);
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translate(-150px, -400px) rotate(360deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Sword Slash Effect */
+@keyframes swordSlash {
+    0%, 100% {
+        transform: translate(-100%, -100%) rotate(-45deg) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(0%, 0%) rotate(-45deg) scale(1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(100%, 100%) rotate(-45deg) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Demon Slayer Background Animation */
+@keyframes demonSlayerShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Tanjiro Stance Animation */
+@keyframes tanjiroStance {
+    0%, 100% {
+        transform: translateX(0) scale(1);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translateX(-5px) scale(1.02);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateX(0) scale(1.05);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translateX(5px) scale(1.02);
+        opacity: 0.7;
+    }
+}
+
+/* Water Breathing Animation */
+@keyframes waterBreathing {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.6;
+    }
+    25% {
+        transform: scale(1.1) rotate(5deg);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.15) rotate(0deg);
+        opacity: 0.9;
+    }
+    75% {
+        transform: scale(1.1) rotate(-5deg);
+        opacity: 0.8;
+    }
+}
+
+/* Nichirin Blade Glow */
+@keyframes nichirinGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(64, 156, 255, 0.5),
+                    0 0 20px rgba(64, 156, 255, 0.3),
+                    0 0 30px rgba(0, 191, 255, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(64, 156, 255, 0.8),
+                    0 0 40px rgba(64, 156, 255, 0.5),
+                    0 0 60px rgba(0, 191, 255, 0.3);
+    }
+}
+
+/* Fire God Kagura Effect */
+@keyframes fireGodKagura {
+    0%, 100% {
+        background-position: 0% center;
+        opacity: 0.3;
+    }
+    50% {
+        background-position: 100% center;
+        opacity: 0.5;
+    }
+}
+
+/* Accent Pulse (optional toggle) */
+html.accent-pulse :root, html.accent-pulse body {
+    --_pulse-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent);
+}
+html.accent-pulse .taskbar-app.active, html.accent-pulse .window.focused .window-header {
+    animation: accentPulse 3.5s ease-in-out infinite;
+}
+@keyframes accentPulse {
+    0%,100% { box-shadow: 0 0 4px var(--accent), 0 0 8px var(--accent); }
+    50% { box-shadow: 0 0 12px var(--accent),0 0 24px var(--accent); }
+}
+
+/* Particles Canvas */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    transition: opacity 0.5s ease;
+}
+
+/* Dynamic Mode Enhancements */
+html.dynamic-mode #wallpaper {
+    animation: wallpaperShift 25s linear infinite;
+    background-size: 140% 140%;
+}
+@keyframes wallpaperShift {
+    0% { transform: scale(1.04) translate3d(0,0,0); filter: saturate(1); }
+    50% { transform: scale(1.08) translate3d(-2%, -2%,0); filter: saturate(1.1); }
+    100% { transform: scale(1.04) translate3d(0,0,0); filter: saturate(1); }
+}
+
+html.dynamic-mode .widget-card {
+    animation: widgetFloat 9s ease-in-out infinite;
+}
+html.dynamic-mode .widget-card:nth-child(2) { animation-delay: 2.2s; }
+@keyframes widgetFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+html.dynamic-mode .desktop-icon i {
+    animation: iconBreath 6s ease-in-out infinite;
+}
+@keyframes iconBreath {
+    0%,100% { filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
+    50% { filter: drop-shadow(0 4px 10px rgba(0,0,0,.55)); }
+}
+
+html.dynamic-mode #taskbar #shield-logo {
+    animation: shieldIdle 12s ease-in-out infinite;
+}
+@keyframes shieldIdle {
+    0%,100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-1px) scale(1.015); }
+}

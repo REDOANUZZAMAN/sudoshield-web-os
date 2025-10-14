@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SudoShield OS</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/desktop.css">
+    <link rel="stylesheet" href="styles/windows.css">
+    <link rel="stylesheet" href="styles/apps.css">
+    <link rel="stylesheet" href="styles/auth.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        // Quick session check to prevent auth screen flash
+        (function() {
+            const session = localStorage.getItem('webos.auth.session');
+            if (session) {
+                try {
+                    const sessionData = JSON.parse(session);
+                    const now = new Date().getTime();
+                    // Check if session is still valid (24 hours)
+                    if (now - sessionData.timestamp < 24 * 60 * 60 * 1000) {
+                        // Valid session exists - hide auth screen immediately
+                        document.documentElement.style.setProperty('--auth-display', 'none');
+                        document.documentElement.style.setProperty('--desktop-display', 'block');
+                    }
+                } catch(e) {}
+            }
+        })();
+        
+        // Check maintenance mode before loading
+        (function() {
+            try {
+                const maintenance = JSON.parse(localStorage.getItem('sudoshield.maintenance') || '{}');
+                if (maintenance.enabled) {
+                    window.location.href = 'maintenance.html';
+                }
+            } catch(e) {
+                console.error('Error checking maintenance mode:', e);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Login/Authentication Screen -->
+    <div id="auth-screen">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <div class="auth-logo-icon">🛡️</div>
+                <h1>SudoShield OS</h1>
+                <p>Secure Web Operating System</p>
+            </div>
+            
+            <form id="auth-login-form" class="auth-form">
+                <div class="auth-form-group">
+                    <label for="auth-username">Username</label>
+                    <div class="auth-input-wrapper">
+                        <span class="auth-input-icon">👤</span>
+                        <input 
+                            type="text" 
+                            id="auth-username" 
+                            name="username" 
+                            placeholder="Enter your username"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <div class="auth-form-group">
+                    <label for="auth-password">Password</label>
+                    <div class="auth-input-wrapper">
+                        <span class="auth-input-icon">🔒</span>
+                        <input 
+                            type="password" 
+                            id="auth-password" 
+                            name="password" 
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+                        <button type="button" id="auth-toggle-password" class="auth-toggle-password">👁️</button>
+                    </div>
+                </div>
+                
+                <button type="submit" id="auth-login-btn" class="auth-btn">
+                    🔐 Login
+                </button>
+                
+                <div id="auth-error" class="auth-error"></div>
+                <div id="auth-success" class="auth-success"></div>
+            </form>
+            
+            <div class="auth-footer">
+                <!-- Default credentials removed for security. Users should set up accounts via admin or n8n workflow. -->
+                <p style="margin-top: 10px; font-size: 12px;">You can change your credentials in Settings after login</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="desktop" class="hidden">
+        <!-- Desktop wallpaper -->
+        <div id="wallpaper"></div>
+        
+        <!-- Desktop widgets layer -->
+        <div id="desktop-widgets" aria-label="Desktop widgets"></div>
+        <!-- Separate clock widget container -->
+        <div id="desktop-clock-widget" aria-label="Clock widget"></div>
+        <!-- Separate system widget container -->
+        <div id="desktop-system-widget" aria-label="System widget"></div>
+        
+        <!-- Desktop icons -->
+        <div id="desktop-icons">
+            <div class="desktop-icon" data-app="browser">
+                <i class="fas fa-globe"></i>
+                <span>Browser</span>
+            </div>
+            <div class="desktop-icon" data-app="youtube">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </div>
+            <div class="desktop-icon" data-app="facebook">
+                <i class="fab fa-facebook"></i>
+                <span>Facebook</span>
+            </div>
+            <div class="desktop-icon" data-app="games">
+                <i class="fas fa-gamepad"></i>
+                <span>Games</span>
+            </div>
+            <div class="desktop-icon" data-app="terminal">
+                <i class="fas fa-terminal"></i>
+                <span>Terminal</span>
+            </div>
+            <div class="desktop-icon" data-app="file-manager">
+                <i class="fas fa-folder"></i>
+                <span>Files</span>
+            </div>
+            <div class="desktop-icon" data-app="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+            <div class="desktop-icon" data-app="canva">
+                <i class="fas fa-file-powerpoint"></i>
+                <span>Slides</span>
+            </div>
+        </div>
+        
+        <!-- Windows container -->
+        <div id="windows-container"></div>
+        
+        <!-- Context menu -->
+        <div id="context-menu" class="context-menu hidden">
+            <ul>
+                <li data-action="refresh">Refresh</li>
+                <li data-action="terminal">Open Terminal</li>
+                <li data-action="settings">Settings</li>
+            </ul>
+        </div>
+        
+        <!-- Taskbar -->
+        <div id="taskbar">
+            <div id="start-menu-button" title="Start">
+                <svg id="shield-logo" width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SudoShield Logo">
+                    <defs>
+                        <linearGradient id="shieldGradient" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="var(--accent)" />
+                            <stop offset="50%" stop-color="var(--accent-secondary)" />
+                            <stop offset="100%" stop-color="var(--accent-tertiary)" />
+                        </linearGradient>
+                        <filter id="shieldGlow" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+                            <feColorMatrix in="blur" type="matrix" values="0 0 0 0 1  0 0 0 0 0  0 0 0 0 0.5  0 0 0 0.55 0" result="glow" />
+                            <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+                    <path id="shield-bg" d="M32 4L10 12v18c0 16.2 9.6 24.9 22 30 12.4-5.1 22-13.8 22-30V12L32 4Z" fill="url(#shieldGradient)" stroke="rgba(255,255,255,0.25)" stroke-width="2" filter="url(#shieldGlow)"/>
+                    <path id="shield-core" d="M32 14L18 19v11c0 10.2 6 16.1 14 19.6 8-3.5 14-9.4 14-19.6V19L32 14Z" fill="rgba(0,0,0,0.35)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+                    <path id="shield-symbol" d="M32 24c4.4 0 8 3.6 8 8 0 4.4-3.6 8-8 8s-8-3.6-8-8c0-1.4.4-2.8 1.1-4h5.9l-4 4.2c.6 2 2.4 3.8 5 3.8 2.8 0 5-2.2 5-5 0-.9-.3-1.8-.7-2.5H32v-4.5Z" fill="white" fill-opacity="0.92" />
+                </svg>
+            </div>
+            <div id="taskbar-apps"></div>
+            <div id="system-tray">
+                <div id="clock"></div>
+                <div class="system-icon">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <div class="system-icon">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+                <div class="system-icon">
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Start menu -->
+        <div id="start-menu" class="hidden">
+            <div class="start-menu-header">
+                <h3>Applications</h3>
+            </div>
+            <div class="start-menu-apps">
+                <div class="start-menu-item" data-app="browser">
+                    <i class="fas fa-globe"></i>
+                    <span>Web Browser</span>
+                </div>
+                <div class="start-menu-item" data-app="youtube">
+                    <i class="fab fa-youtube"></i>
+                    <span>YouTube</span>
+                </div>
+                <div class="start-menu-item" data-app="facebook">
+                    <i class="fab fa-facebook"></i>
+                    <span>Facebook</span>
+                </div>
+                <div class="start-menu-item" data-app="games">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Games</span>
+                </div>
+                <div class="start-menu-item" data-app="terminal">
+                    <i class="fas fa-terminal"></i>
+                    <span>Terminal</span>
+                </div>
+                <div class="start-menu-item" data-app="file-manager">
+                    <i class="fas fa-folder"></i>
+                    <span>File Manager</span>
+                </div>
+                <div class="start-menu-item" data-app="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+                <div class="start-menu-item" data-app="canva">
+                    <i class="fas fa-file-powerpoint"></i>
+                    <span>Slides</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts - Optimized loading order -->
+    <!-- Authentication System (loaded first) - Local Storage Version -->
+    <script src="js/system/auth.js"></script>
+    
+    <!-- Core Performance Optimization -->
+    <script src="js/performance.js"></script>
+    
+    <!-- Critical System Scripts -->
+    <script src="js/system/fileSystem.js"></script>
+    <script src="js/system/state.js"></script>
+    <script src="js/windowManager.js"></script>
+    <script src="js/desktop.js"></script>
+    
+    <!-- App Scripts (defer non-critical) -->
+    <script src="js/apps/browser.js" defer></script>
+    <script src="js/data/youtubeData.js" defer></script>
+    <script src="js/apps/youtube-premium.js" defer></script>
+    <script src="js/apps/facebook.js" defer></script>
+    <script src="js/apps/games.js" defer></script>
+    <script src="js/apps/terminal.js" defer></script>
+    <script src="js/apps/fileManager.js" defer></script>
+    <script src="js/apps/settings.js" defer></script>
+    <script src="js/apps/canva.js" defer></script>
+    
+    <!-- Main Application -->
+    <script src="js/main.js"></script>
+    
+    <!-- Non-critical enhancements (async) -->
+    <script src="js/dynamicMode.js" async></script>
+    <script src="js/widgets/widgets.js" async></script>
+    <script src="js/widgets/tanjiro.js" async></script>
+    <script src="js/widgets/tanjiro_oneclick_ai.js" async></script>
+    <script src="js/effects/matrixRain.js" async></script>
+    <script src="js/effects/particles.js" async></script>
+    <script src="js/effects/demonslayer.js" async></script>
+</body>
+</html>

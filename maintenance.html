@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Maintenance - SudoShield OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        .particle.red {
+            background: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+        }
+
+        .particle.light-blue {
+            background: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+
+        .particle.white {
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .maintenance-container {
+            text-align: center;
+            max-width: 650px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 60px 40px;
+            border-radius: 25px;
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.5);
+            animation: slideUp 0.8s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .maintenance-icon-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .maintenance-icon {
+            font-size: 90px;
+            color: #667eea;
+            animation: bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(102, 126, 234, 0.3));
+        }
+
+        .gear-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            color: rgba(102, 126, 234, 0.1);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { 
+                transform: translateY(0) scale(1);
+            }
+            50% { 
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .shield-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(102, 126, 234, 0.8));
+                transform: scale(1.05);
+            }
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #718096;
+            margin-bottom: 30px;
+            font-weight: 500;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 35px;
+            line-height: 1.8;
+            animation: fadeIn 1s ease-out 0.7s both;
+        }
+
+        .time-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: fadeIn 1s ease-out 0.9s both, pulse 3s ease-in-out infinite 1s;
+            font-size: 15px;
+        }
+
+        .time-info i {
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 30px;
+            animation: fadeIn 1s ease-out 1.1s both;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+            background-size: 200% 100%;
+            animation: loading 2s ease-in-out infinite;
+            border-radius: 10px;
+        }
+
+        @keyframes loading {
+            0% {
+                width: 0%;
+                background-position: 0% 50%;
+            }
+            50% {
+                width: 100%;
+                background-position: 100% 50%;
+            }
+            100% {
+                width: 0%;
+                background-position: 0% 50%;
+            }
+        }
+
+        .status-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+            animation: fadeIn 1s ease-out 1.3s both;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: dotBounce 1.4s ease-in-out infinite;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes dotBounce {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .maintenance-container {
+                padding: 40px 25px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .maintenance-icon {
+                font-size: 70px;
+            }
+
+            .gear-background {
+                font-size: 100px;
+            }
+
+            .message {
+                font-size: 16px;
+            }
+
+            .time-info {
+                padding: 15px 25px;
+                font-size: 14px;
+            }
+
+            .shield-logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .maintenance-container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .maintenance-icon {
+                font-size: 60px;
+            }
+
+            .message {
+                font-size: 15px;
+                margin-bottom: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="maintenance-container">
+        <!-- Shield Logo -->
+        <svg class="shield-logo" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <path d="M32 4 L8 14 L8 32 Q8 48 32 60 Q56 48 56 32 L56 14 Z" 
+                  fill="url(#shieldGradient)" 
+                  stroke="url(#shieldGradient)" 
+                  stroke-width="2"/>
+            <path d="M32 12 L16 19 L16 32 Q16 44 32 52 Q48 44 48 32 L48 19 Z" 
+                  fill="rgba(255,255,255,0.2)"/>
+        </svg>
+
+        <!-- Icon with rotating background -->
+        <div class="maintenance-icon-wrapper">
+            <i class="fas fa-cog gear-background"></i>
+            <div class="maintenance-icon">
+                <i class="fas fa-tools"></i>
+            </div>
+        </div>
+
+        <h1>Under Maintenance</h1>
+        <p class="subtitle">We'll be back online shortly</p>
+        
+        <p class="message" id="maintenance-message">
+            We are currently performing scheduled maintenance to improve your experience. Please check back soon!
+        </p>
+        
+        <div class="time-info" id="maintenance-time" style="display: none;">
+            <i class="fas fa-clock"></i>
+            <span id="time-text"></span>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-bar-fill"></div>
+        </div>
+
+        <!-- Status Dots -->
+        <div class="status-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script>
+        // Check if preview mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPreview = urlParams.get('preview') === 'true';
+        
+        // Load maintenance data
+        let maintenance;
+        if (isPreview) {
+            maintenance = JSON.parse(localStorage.getItem('sudoshield.maintenance.preview') || '{}');
+        } else {
+            maintenance = JSON.parse(localStorage.getItem('sudoshield.maintenance') || '{}');
+            
+            // SECURITY: Block direct access if maintenance mode is not enabled
+            if (!maintenance.enabled) {
+                console.warn('⚠️ Maintenance page accessed but maintenance mode is not enabled');
+                // Redirect to main site
+                window.location.href = 'index.html';
+                // Stop script execution
+                throw new Error('Redirecting to main site');
+            }
+        }
+        
+        if (maintenance.message) {
+            document.getElementById('maintenance-message').textContent = maintenance.message;
+        }
+        if (maintenance.time) {
+            document.getElementById('maintenance-time').style.display = 'inline-block';
+            document.getElementById('time-text').textContent = 'Estimated time: ' + maintenance.time;
+        }
+        
+        // Auto-reload when maintenance mode is disabled
+        if (!isPreview) {
+            setInterval(() => {
+                const currentMaintenance = JSON.parse(localStorage.getItem('sudoshield.maintenance') || '{}');
+                const reloadFlag = localStorage.getItem('sudoshield.maintenance.reload');
+                
+                // If maintenance mode is disabled, redirect to main site
+                if (!currentMaintenance.enabled || reloadFlag === 'true') {
+                    console.log('✅ Maintenance mode disabled - Redirecting to main site...');
+                    localStorage.removeItem('sudoshield.maintenance.reload');
+                    window.location.href = 'index.html';
+                }
+            }, 2000); // Check every 2 seconds
+        }
+
+        // Generate animated background particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 80; // Increased from 30 to 80
+            
+            // Define particle colors (red, light blue, white)
+            const colors = ['red', 'light-blue', 'white', 'red', 'light-blue'];
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                
+                // Random color selection - more red and light blue
+                const colorClass = colors[Math.floor(Math.random() * colors.length)];
+                particle.className = `particle ${colorClass}`;
+                
+                // Random positioning
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Random animation delay and duration
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                // Random size with variation
+                const size = Math.random() * 6 + 2; // Increased max size
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+    </script>
+</body>
+</html>

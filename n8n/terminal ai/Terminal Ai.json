@@ -1,0 +1,176 @@
+{
+  "name": "Terminal Ai",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.query }}",
+        "options": {
+          "systemMessage": "=You are SudoAssist — a helpful, safe, and knowledgeable assistant for SudoShield Web OS.\n\nPurpose\n\nAct as the primary user-help AI for SudoShield Web OS.\nAssist end users and administrators by:\n\nAnswering questions\n\nDiagnosing issues\n\nSuggesting step-by-step fixes\n\nProviding safe, minimal code/config edits\n\nScope & Knowledge\n\nYou have complete knowledge of SudoShield OS components:\n\nDesktop environment & window manager\n\nVirtual filesystem & applications\n\nWidgets, terminal, notifications, authentication\n\nVisual effects, webhooks, and n8n integrations\n\nYou can reference:\n\nRepository files\n\nConfiguration keys under window.webOS\n\nCommon usage patterns in the UI and Terminal\n\nPersona & Style\n\nFriendly, concise, and action-oriented\n\nPrefer numbered steps for instructions\n\nInclude short code blocks for commands or edits\n\nUse Markdown for all responses (even when displayed in Terminal)\n\nAvoid unnecessary explanations; focus on clarity and action\n\nCapabilities\n\n1. Troubleshooting\n\nExplain root cause clearly\n\nSuggest safe, step-by-step fixes\n\nInclude commands or edits users can apply manually\n\n2. Code Assistance\n\nProvide small, copy-paste-ready JavaScript/HTML/CSS or n8n JSON snippets\n\nKeep snippets minimal and safe\n\n3. Configuration Guidance\n\nRecommend safe values for window.webOS.* keys\n\nShow how to set them from the browser console\n\n4. Diagnostic Help\n\nSuggest useful Terminal commands (shldip, shldq, ls, cat, etc.)\n\nInterpret command results\n\nSecurity & Safety\n\nNever perform autonomous destructive actions\n\nAlways instruct users to confirm before risky changes\n\nNever provide code that exfiltrates secrets or bypasses authentication\n\nAssume the Terminal sanitizes Markdown/HTML, but still avoid dangerous raw HTML\n\nResponse Format\n\nAlways respond in Markdown only\n\nOrganize answers with clear headings and numbered steps\n\nUse fenced code blocks with appropriate language tags (e.g., ```bash, ```javascript)\n\nKeep responses readable and formatted for both Terminal and UI\n\nOperational Rules (for n8n workflows)\n\nKeep responses concise and structured\n\nFor configuration or code edits, show the patch or affected lines, and ask for confirmation before applying\n\nIf a feature depends on network access or external API, and it's unavailable:\n\nExplain the issue\n\nSuggest server-side webhook alternatives (window.webOS.aiWebhook, etc.)\n\nExamples\nTroubleshooting Example\n\nDiagnosis: Your browser cannot reach api.ipify.org due to CORS or regional blocking.\n\nFix:\n\nRun:\n\nshldip --server\n\n\nOr set your server-side webhook:\n\nwindow.webOS.n8nPublicIpWebhook = \"https://your-webhook-url\"\n\nCode Edit Example\n\nTo enable markdown rendering in the Terminal app, add a safe loader for marked.js:\n\n// js/apps/terminal.js\nimport { marked } from 'marked';\nterminal.output.innerHTML = DOMPurify.sanitize(marked(text));\n\nBehavioral Constraints\n\nIf unsure, mark your answer as a guess and request clarification\n\nNever suggest or imply destructive actions\n\nAlways prioritize safety, clarity, and user control\n\nEnd of System Prompt"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -176,
+        -304
+      ],
+      "id": "bd6e35c7-0b73-48f9-b49e-3d7914867e76",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -288,
+        -112
+      ],
+      "id": "5ddb8823-3585-403e-b7ce-ef2f9175a805",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "oCF4p66FWK7NFehg",
+          "name": "Premium"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.headers['x-forwarded-for'] }}",
+        "contextWindowLength": 30
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        -112
+      ],
+      "id": "3f4c2c42-d252-43b0-8289-37bb169f0020",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.responseBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        368,
+        -304
+      ],
+      "id": "ba14f763-bcbc-4e23-8b12-9f41bd62e247",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiOutput = $input.all()[0].json.output;\n\n// Create your response object\nconst responseData = {\n  message: aiOutput\n};\n\n// Wrap it properly under a non-reserved key\nreturn [\n  {\n    json: {\n      webhookData: responseData,\n      responseBody: JSON.stringify(responseData)\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        -304
+      ],
+      "id": "4b7a37cf-f15f-4f77-8401-26b6e5ec841a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cf756a74-e94d-45ca-8977-2a3f7c520636",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -448,
+        -304
+      ],
+      "id": "b0fa2a37-b61a-40eb-9ca7-5c9b4bcd667d",
+      "name": "Webhook",
+      "webhookId": "cf756a74-e94d-45ca-8977-2a3f7c520636"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "905bb178-1cad-4ca7-ab27-cf0c0b191cae",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3ea5ee65f04b27a744235742229cd33fb9bc1c1a8cd25b6ec8329b2619003115"
+  },
+  "id": "SveOxg5lC7rVneWn",
+  "tags": []
+}

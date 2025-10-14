@@ -1,0 +1,1591 @@
+{
+  "name": "SUDOSHIELD_N8N_WORKFLOW",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "3794706c-43aa-49fe-8c32-16d582da2694",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -656,
+        -64
+      ],
+      "id": "774d0507-53af-4417-9acf-beae79a0a87f",
+      "name": "Webhook",
+      "webhookId": "3794706c-43aa-49fe-8c32-16d582da2694"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2d5b975e-e38d-4f7f-b524-5794d4f3c049",
+              "leftValue": "={{ $json.body.username }}",
+              "rightValue": "sudoshield",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "cbbf2992-cf58-468f-9999-9110cbb66f72",
+              "leftValue": "={{ $json.body.password }}",
+              "rightValue": "Sudoos12",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        -224
+      ],
+      "id": "b9cdc68f-414b-4c54-bf3f-3924cdba8095",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"authenticated\": true,\n  \"message\": \"Login successful\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        464,
+        -352
+      ],
+      "id": "5e86b617-b6bf-4077-99a6-ed8e02a8c23c",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"authenticated\": false,\n  \"message\": \"Invalid credentials\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        480,
+        -112
+      ],
+      "id": "c54f4cfe-5c45-49dc-a20a-96c80eb1a2c8",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1c4d93b2-e205-4b59-9f4a-635d74f2fb70",
+              "leftValue": "={{ $json.body.username }}",
+              "rightValue": "sudoshield",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "93b159a4-144e-4fdc-822f-7f8a7168f114",
+              "leftValue": "={{ $json.body.password }}",
+              "rightValue": "Sudoos12",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -176,
+        -64
+      ],
+      "id": "e2e6aaea-3a7f-497b-9446-b1f1c1c499b6",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "83b4f8cb-8e5b-4842-b164-4388d165025e",
+              "leftValue": "={{ $json['current password'] }}",
+              "rightValue": "={{ $('Webhook').item.json.body.oldPassword }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "ba6e3bd9-f4bc-4361-8ab0-0c7fb031bbf4",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1504,
+        176
+      ],
+      "id": "32cc29b7-d70f-4147-9844-83b589a79019",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k",
+          "mode": "list",
+          "cachedResultName": "passdata",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "current username",
+              "lookupValue": "={{ $json.body.currentUsername }}"
+            },
+            {
+              "lookupColumn": "device id",
+              "lookupValue": "={{ $json.body.deviceId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        96,
+        160
+      ],
+      "id": "34f0d847-4a87-428d-8b1f-945097c98344",
+      "name": "Get row(s) in sheet",
+      "executeOnce": false,
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zlvYdDuQRCmtccfy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": false,\n  \"message\": \"Incorrect Current Password\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1808,
+        400
+      ],
+      "id": "f9bfd605-aa08-4925-9516-243578da2411",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "39d702db-9a6d-4b20-a88d-bc32129528d1",
+              "leftValue": "={{ $('Webhook').item.json.body.action }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -352,
+        192
+      ],
+      "id": "6ef13578-73db-4433-b763-89716b17407a",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": false,\n  \"message\": \"User not found\"\n}",
+        "options": {
+          "responseCode": 404
+        }
+      },
+      "id": "aaf243d9-9377-430e-8d8f-0a487d16d69f",
+      "name": "Error - User Not Found1",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        992,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "83b4f8cb-8e5b-4842-b164-4388d165025e",
+              "leftValue": "={{ $json['current username'] }}",
+              "rightValue": "={{ $('Webhook').item.json.body.currentUsername }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "1e3f5e9b-df2e-4ce8-ba99-9bbd7698cb4f",
+              "leftValue": "={{ $json['device id'] }}",
+              "rightValue": "={{ $('Webhook').item.json.body.deviceId }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        144
+      ],
+      "id": "18d3339f-0a44-4746-aac1-03bada815ab0",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k",
+          "mode": "list",
+          "cachedResultName": "passdata",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "current password",
+              "lookupValue": "={{ $('Webhook').item.json.body.oldPassword }}"
+            },
+            {
+              "lookupColumn": "device id",
+              "lookupValue": "={{ $('Webhook').item.json.body.deviceId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        48
+      ],
+      "id": "9ec7fc4c-2aec-45cf-a60a-2a634005c4cf",
+      "name": "Get row(s) in sheet1",
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zlvYdDuQRCmtccfy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all items\nconst items = $input.all();\n\n// Process each item\nreturn items.map(item => {\n  return {\n    json: {\n      ...item.json,\n      \"current password\": String(item.json[\"current password\"])\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        112
+      ],
+      "id": "fcb49596-5047-4499-abe0-df7ea48b8b75",
+      "name": "Code in JavaScript",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k",
+          "mode": "list",
+          "cachedResultName": "passdata",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "current username": "={{ $('Webhook').item.json.body.newUsername }}",
+            "current password": "={{ $('Webhook').item.json.body.newPassword }}",
+            "device id": "={{ $('Webhook').item.json.body.deviceId }}",
+            "modify": "={{ $('Webhook').item.json.body.timestamp }}"
+          },
+          "matchingColumns": [
+            "device id"
+          ],
+          "schema": [
+            {
+              "id": "current username",
+              "displayName": "current username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "current password",
+              "displayName": "current password",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ip",
+              "displayName": "ip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "device id",
+              "displayName": "device id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "modify",
+              "displayName": "modify",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1760,
+        32
+      ],
+      "id": "1ed0f144-f161-4146-ab90-df3aee8bf029",
+      "name": "Update row in sheet",
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zlvYdDuQRCmtccfy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k",
+          "mode": "list",
+          "cachedResultName": "passdata",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "current username",
+              "lookupValue": "={{ $('Webhook').item.json.body.username }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        64,
+        528
+      ],
+      "id": "9d3a890b-b878-447b-b834-367228eaac84",
+      "name": "Get row(s) in sheet2",
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zlvYdDuQRCmtccfy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"authenticated\": true,\n  \"message\": \"Login successful\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        608,
+        272
+      ],
+      "id": "5ecde0eb-f8fc-4a2c-ad6f-6b1f55a8ad4d",
+      "name": "Respond to Webhook4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "83b4f8cb-8e5b-4842-b164-4388d165025e",
+              "leftValue": "={{ $json['current username'] }}",
+              "rightValue": "={{ $('Webhook').item.json.body.username }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        272,
+        528
+      ],
+      "id": "8c507924-6fd7-4ed2-9f8e-2d401ccd6361",
+      "name": "If5"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k",
+          "mode": "list",
+          "cachedResultName": "passdata",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "current password",
+              "lookupValue": "={{ $('Webhook').item.json.body.password }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        64,
+        304
+      ],
+      "id": "5df5c004-93c2-4af1-b5de-0f35a253f0ab",
+      "name": "Get row(s) in sheet3",
+      "executeOnce": false,
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zlvYdDuQRCmtccfy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "83b4f8cb-8e5b-4842-b164-4388d165025e",
+              "leftValue": "={{ $json['current password'] }}",
+              "rightValue": "={{ $('Webhook').item.json.body.password }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        320
+      ],
+      "id": "8b204e02-94fc-408b-bb37-c144ae303648",
+      "name": "If6"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"authenticated\": false,\n  \"message\": \"Invalid credentials\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        656,
+        560
+      ],
+      "id": "7c3c1052-0be8-4ba9-8ea0-dab18a242ca8",
+      "name": "Respond to Webhook5"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"message\": \"Credentials updated successfully\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        2016,
+        0
+      ],
+      "id": "94965e8e-2bfe-4953-a50a-868607ff3cd9",
+      "name": "Respond to Webhook7"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k",
+          "mode": "list",
+          "cachedResultName": "passdata",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "current username",
+              "lookupValue": "={{ $('Webhook').item.json.body.username }}"
+            },
+            {
+              "lookupColumn": "device id",
+              "lookupValue": "={{ $('Webhook').item.json.body.deviceId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -496,
+        512
+      ],
+      "id": "97acb7bc-e1d6-49bc-b1b7-db02bd5e0b46",
+      "name": "Get row(s) in sheet4",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zlvYdDuQRCmtccfy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f850a953-4948-4e25-a87d-d4fe5a872626",
+              "leftValue": "={{ $('Webhook').item.json.body.deviceId }}",
+              "rightValue": "={{ $json['device id'] }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -256,
+        592
+      ],
+      "id": "150aede7-c5c5-49d5-a530-ea6de6528dcf",
+      "name": "If7"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"authenticated\": false,\n  \"message\": \"Invalid Input. Use the Browser from account creation or check your username/password\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        80,
+        800
+      ],
+      "id": "927e07ca-b0be-4419-8d3e-f54b3a987ff3",
+      "name": "Respond to Webhook8"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k",
+          "mode": "list",
+          "cachedResultName": "passdata",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "current username": "sudoshield",
+            "current password": "Sudoos12",
+            "ip": "={{ $('Webhook').item.json.headers['x-forwarded-for'] }}",
+            "country": "={{ $('Webhook').item.json.headers['cf-ipcountry'] }}",
+            "device id": "={{ $('Webhook').item.json.body.deviceId }}",
+            "time": "={{ $('Webhook').item.json.body.timestamp }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "current username",
+              "displayName": "current username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "current password",
+              "displayName": "current password",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ip",
+              "displayName": "ip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "device id",
+              "displayName": "device id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "modify",
+              "displayName": "modify",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1168,
+        -208
+      ],
+      "id": "2bd0cf68-8b8a-4b6b-862b-3eaf2e07a89c",
+      "name": "Append row in sheet",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zlvYdDuQRCmtccfy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9a8e804c-16c2-498f-a90c-c8981fc8f940",
+              "leftValue": "={{ $json.ip }}",
+              "rightValue": "={{ $('Webhook').item.json.headers['x-forwarded-for'] }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "5c9ae05d-f7bf-419c-86ef-f885a9f9ffa3",
+              "leftValue": "={{ $('Webhook').item.json.body.deviceId }}",
+              "rightValue": "={{ $json['device id'] }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        -352
+      ],
+      "id": "b2ae686f-b67c-463b-bfc6-6f7c7e40183a",
+      "name": "If8"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k",
+          "mode": "list",
+          "cachedResultName": "passdata",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1umtJTwLcX0ehY-QhT-FXjCOyFYxq9WEYxgcyylvi82k/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ip",
+              "lookupValue": "={{ $json.headers['x-forwarded-for'] }}"
+            },
+            {
+              "lookupColumn": "device id",
+              "lookupValue": "={{ $json.body.deviceId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        672,
+        -352
+      ],
+      "id": "c2a2069e-9419-4614-8722-12d6523b5249",
+      "name": "Get row(s) in sheet5",
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zlvYdDuQRCmtccfy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        -432
+      ],
+      "id": "97e29607-1e11-4236-9996-c71117a0e172",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        736,
+        -112
+      ],
+      "id": "5261426c-54e0-4dc8-b30c-6d0ab5f2aa8c",
+      "name": "No Operation, do nothing1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        -192
+      ],
+      "id": "e9454e06-ecf5-4cf9-8b93-94010e3286d1",
+      "name": "No Operation, do nothing2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2224,
+        -32
+      ],
+      "id": "307eee2f-ae92-4bfe-9c74-802625252acf",
+      "name": "No Operation, do nothing3"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        400
+      ],
+      "id": "1cf1da5f-c1b1-4d69-988f-ae1349eee047",
+      "name": "No Operation, do nothing4"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2176,
+        368
+      ],
+      "id": "4ab3bd07-5566-405a-b7cf-ecb33086e024",
+      "name": "No Operation, do nothing5"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        832,
+        448
+      ],
+      "id": "518a2699-06c5-49e9-82d7-6df4a6151120",
+      "name": "No Operation, do nothing6"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        944,
+        592
+      ],
+      "id": "da76ed0f-a70e-4dcd-af7b-250b523547a3",
+      "name": "No Operation, do nothing7"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        416,
+        784
+      ],
+      "id": "db3e6cfc-ed9f-4b20-9a2f-3d3313c3c0a4",
+      "name": "No Operation, do nothing8"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"authenticated\": false,\n  \"message\": \"Wrong Username\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        640,
+        704
+      ],
+      "id": "5feac57f-1d1b-4f87-9569-175949bfe7e5",
+      "name": "Respond to Webhook6"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        928,
+        736
+      ],
+      "id": "003e226b-3a1e-4f8d-9002-3383667b8142",
+      "name": "No Operation, do nothing9"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.bytevia.tech",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 NetType/WIFI MicroMessenger/7.0.20.1781(0x6700143B) WindowsWechat(0x63090a13) UnifiedPCWindowsWechat(0xf2541022) XWEB/16467 Flue",
+            "content-length": "382",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1",
+            "cf-connecting-ip": "38.126.63.251",
+            "cf-ipcountry": "JP",
+            "cf-ray": "98e4feaf5f9dd75e-NRT",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-warp-tag-id": "4f03bb2b-9f84-40de-a6c3-518a04ed0268",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "origin": "https://os.sudoshield.top",
+            "priority": "u=1, i",
+            "referer": "https://os.sudoshield.top/",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "x-forwarded-for": "38.126.63.251",
+            "x-forwarded-proto": "https"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "username": "sudoshield",
+            "password": "Sudoos12",
+            "deviceId": "dev_1760421828463_8vf9v2pb9",
+            "timestamp": "2025-10-14T06:24:41.192Z",
+            "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 NetType/WIFI MicroMessenger/7.0.20.1781(0x6700143B) WindowsWechat(0x63090a13) UnifiedPCWindowsWechat(0xf2541022) XWEB/16467 Flue"
+          },
+          "webhookUrl": "https://n8n.bytevia.tech/webhook/3794706c-43aa-49fe-8c32-16d582da2694",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error - User Not Found1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If5": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "If5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet3": {
+      "main": [
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet4": {
+      "main": [
+        [
+          {
+            "node": "If7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If7": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook5": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If8": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet5": {
+      "main": [
+        [
+          {
+            "node": "If8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook1": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook7": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook2": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error - User Not Found1": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook4": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook8": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook6": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "efbd1fc3-7721-42f0-b7cc-39134a0b00cc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3ea5ee65f04b27a744235742229cd33fb9bc1c1a8cd25b6ec8329b2619003115"
+  },
+  "id": "pMaVXSIOUJVvokiP",
+  "tags": []
+}

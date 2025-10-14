@@ -1,0 +1,269 @@
+/* Window Management Styles - Garuda Glass Theme */
+.window {
+    position: absolute;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    box-shadow: var(--glow-shadow);
+    min-width: 350px;
+    min-height: 250px;
+    z-index: 100;
+    overflow: hidden;
+    transition: all var(--animation-speed) ease;
+    /* Performance optimizations */
+    contain: layout style paint;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: calc(100% - var(--taskbar-height)) !important;
+    border-radius: 0;
+}
+
+.window.minimized {
+    display: none;
+}
+
+.window.dragging {
+    /* Reduce visual effects during drag for better performance */
+    transition: none !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(5px) !important;
+    will-change: left, top;
+}
+
+.window-header {
+    height: 45px;
+    background: var(--gradient-glass);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    cursor: move;
+    user-select: none;
+    position: relative;
+}
+
+.window-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    opacity: 0.1;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.window-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.window-title i {
+    font-size: 18px;
+    color: var(--accent);
+    filter: drop-shadow(0 0 8px var(--accent));
+}
+
+.window-title span {
+    font-size: 15px;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.window-control {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.window-control:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.window-control.minimize {
+    background: rgba(255, 193, 7, 0.2);
+}
+
+.window-control.minimize:hover {
+    background: #ffc107;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
+}
+
+.window-control.maximize {
+    background: rgba(40, 167, 69, 0.2);
+}
+
+.window-control.maximize:hover {
+    background: #28a745;
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.6);
+}
+
+.window-control.close {
+    background: rgba(220, 53, 69, 0.2);
+}
+
+.window-control.close:hover {
+    background: #dc3545;
+    box-shadow: 0 0 15px rgba(220, 53, 69, 0.6);
+}
+
+.window-control i {
+    font-size: 12px;
+    color: var(--text-primary);
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.8));
+}
+
+.window-content {
+    height: calc(100% - 45px);
+    overflow: auto;
+    position: relative;
+    background: var(--bg-secondary);
+    border-radius: 0 0 var(--border-radius-small) var(--border-radius-small);
+}
+
+/* Resize handles */
+.window::before,
+.window::after {
+    content: '';
+    position: absolute;
+    background: transparent;
+}
+
+.resize-handle {
+    position: absolute;
+    background: transparent;
+}
+
+.resize-handle.n {
+    top: -3px;
+    left: 3px;
+    right: 3px;
+    height: 6px;
+    cursor: n-resize;
+}
+
+.resize-handle.s {
+    bottom: -3px;
+    left: 3px;
+    right: 3px;
+    height: 6px;
+    cursor: s-resize;
+}
+
+.resize-handle.e {
+    top: 3px;
+    right: -3px;
+    bottom: 3px;
+    width: 6px;
+    cursor: e-resize;
+}
+
+.resize-handle.w {
+    top: 3px;
+    left: -3px;
+    bottom: 3px;
+    width: 6px;
+    cursor: w-resize;
+}
+
+.resize-handle.ne {
+    top: -3px;
+    right: -3px;
+    width: 6px;
+    height: 6px;
+    cursor: ne-resize;
+}
+
+.resize-handle.nw {
+    top: -3px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    cursor: nw-resize;
+}
+
+.resize-handle.se {
+    bottom: -3px;
+    right: -3px;
+    width: 6px;
+    height: 6px;
+    cursor: se-resize;
+}
+
+.resize-handle.sw {
+    bottom: -3px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    cursor: sw-resize;
+}
+
+/* Window focus states */
+.window.focused {
+    z-index: 200;
+    border-color: var(--accent);
+    box-shadow: var(--accent-glow), var(--glow-shadow);
+}
+
+.window.focused .window-header::before {
+    opacity: 0.2;
+}
+
+/* Dynamic Mode Window Accent Flow */
+html.dynamic-mode .window.focused .window-header::before {
+    animation: headerFlow 10s linear infinite;
+    background-size: 200% 200%;
+}
+@keyframes headerFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Loading state */
+.window-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-secondary);
+}
+
+.window-loading i {
+    font-size: 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

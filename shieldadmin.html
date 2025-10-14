@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SudoShield OS - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="active">
+        <div class="login-container">
+            <div class="login-header">
+                <i class="fas fa-shield-halved"></i>
+                <h1>SudoShield OS</h1>
+                <p>Admin Dashboard</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i>
+                        Username
+                    </label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+                <div class="error-message" id="error-message"></div>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard">
+        <div class="admin-header">
+            <div class="header-left">
+                <i class="fas fa-shield-halved"></i>
+                <h1>SudoShield OS Admin</h1>
+            </div>
+            <div class="header-center">
+                <div class="theme-toggle-switch">
+                    <input type="checkbox" id="theme-checkbox" class="theme-checkbox">
+                    <label for="theme-checkbox" class="theme-label">
+                        <div class="theme-slider">
+                            <i class="theme-icon fas fa-sun"></i>
+                        </div>
+                        <span class="theme-text">LIGHT MODE</span>
+                    </label>
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="admin-user"><i class="fas fa-user-shield"></i> Admin</span>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <div class="admin-container">
+            <div class="sidebar">
+                <nav class="nav-menu">
+                    <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                        <i class="fas fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                    <a href="#maintenance" class="nav-item" data-section="maintenance">
+                        <i class="fas fa-tools"></i>
+                        Maintenance Mode
+                    </a>
+                    <a href="#display" class="nav-item" data-section="display">
+                        <i class="fas fa-palette"></i>
+                        Display Customization
+                    </a>
+                    <a href="#settings" class="nav-item" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        System Settings
+                    </a>
+                    <a href="#widgets" class="nav-item" data-section="widgets">
+                        <i class="fas fa-th"></i>
+                        Widget Manager
+                    </a>
+                    <a href="#apps" class="nav-item" data-section="apps">
+                        <i class="fas fa-cubes"></i>
+                        App Manager
+                    </a>
+                    <a href="#users" class="nav-item" data-section="users">
+                        <i class="fas fa-users"></i>
+                        User Management
+                    </a>
+                    <a href="#security" class="nav-item" data-section="security">
+                        <i class="fas fa-shield-alt"></i>
+                        Security
+                    </a>
+                </nav>
+            </div>
+
+            <div class="main-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <h2><i class="fas fa-chart-line"></i> Dashboard Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>System Status</h3>
+                                <p class="stat-value" id="system-status">Online</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Uptime</h3>
+                                <p class="stat-value" id="uptime-stat">0h 0m</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Active Users</h3>
+                                <p class="stat-value">1</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                                <i class="fas fa-th"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Widgets</h3>
+                                <p class="stat-value" id="widget-count">4</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3><i class="fas fa-info-circle"></i> System Information</h3>
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <span>OS Version:</span>
+                                    <strong>SudoShield v1.0</strong>
+                                </div>
+                                <div class="info-item">
+                                    <span>Last Updated:</span>
+                                    <strong id="last-updated">Just now</strong>
+                                </div>
+                                <div class="info-item">
+                                    <span>Theme:</span>
+                                    <strong id="current-theme">Light Mode</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Maintenance Mode Section -->
+                <section id="maintenance-section" class="content-section">
+                    <h2><i class="fas fa-tools"></i> Maintenance Mode</h2>
+                    <div class="settings-card">
+                        <div class="setting-header">
+                            <div>
+                                <h3>Enable Maintenance Mode</h3>
+                                <p>When enabled, users will see a maintenance page instead of the OS</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="maintenance-toggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div id="maintenance-settings" style="display: none; margin-top: 20px;">
+                            <div class="form-group">
+                                <label>Maintenance Message</label>
+                                <textarea id="maintenance-message" rows="3" placeholder="Enter maintenance message...">We are currently performing scheduled maintenance. Please check back soon!</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Estimated Time</label>
+                                <input type="text" id="maintenance-time" placeholder="e.g., 2 hours">
+                            </div>
+                            <button class="btn btn-primary" id="save-maintenance">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                            <button class="btn btn-secondary" id="test-maintenance" style="margin-left: 10px;">
+                                <i class="fas fa-external-link-alt"></i> Preview Maintenance Page
+                            </button>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Warning:</strong> Enabling maintenance mode will block all regular users from accessing the system. Only admin panel will remain accessible.
+                    </div>
+                </section>
+
+                <!-- Display Customization Section -->
+                <section id="display-section" class="content-section">
+                    <h2><i class="fas fa-palette"></i> Display Customization</h2>
+                    
+                    <!-- Accent Color -->
+                    <div class="settings-card">
+                        <h3><i class="fas fa-paint-brush"></i> Accent Color</h3>
+                        <p class="info-text">Choose the primary accent color for the system theme. Apply to set default, or lock to prevent user changes.</p>
+                        <div class="form-group">
+                            <label>Custom Accent Color</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <input type="color" id="admin-accent-color" value="#ff6ec7" style="width: 60px; height: 40px; border-radius: 8px; border: 2px solid var(--border-color); cursor: pointer;">
+                                <span id="accent-color-value" style="font-family: monospace; font-weight: 600;">#ff6ec7</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preset Colors</label>
+                            <div class="color-presets-grid">
+                                <div class="color-preset-item" data-color="#ff6ec7" style="background: #ff6ec7;" title="Pink (Default)">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="color-preset-item" data-color="#8c7bff" style="background: #8c7bff;" title="Purple">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="color-preset-item" data-color="#4dd0e1" style="background: #4dd0e1;" title="Cyan">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="color-preset-item" data-color="#ffb74d" style="background: #ffb74d;" title="Orange">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="color-preset-item" data-color="#5efc82" style="background: #5efc82;" title="Green">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="color-preset-item" data-color="#ff0080" style="background: #ff0080;" title="Hot Pink">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="color-preset-item" data-color="#00ff41" style="background: #00ff41;" title="Matrix Green">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="color-preset-item" data-color="#4facfe" style="background: #4facfe;" title="Blue">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-primary" id="apply-accent-color">
+                                <i class="fas fa-check"></i> Apply Accent Color
+                            </button>
+                            <button class="btn-lock" id="lock-accent-color" title="Force Lock/Unlock Accent Color">
+                                <i class="fas fa-lock-open"></i> Lock Color
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Wallpaper Selection -->
+                    <div class="settings-card">
+                        <h3><i class="fas fa-image"></i> Wallpaper Theme</h3>
+                        <p class="info-text">Select a wallpaper background for the desktop. Click to apply, or use lock button to prevent user changes.</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span></span>
+                            <button class="btn-lock" id="lock-wallpaper" title="Force Lock/Unlock Wallpaper">
+                                <i class="fas fa-lock-open"></i> Lock Wallpaper
+                            </button>
+                        </div>
+                        <div class="wallpaper-admin-grid">
+                            <div class="wallpaper-admin-item" data-wallpaper="nebula">
+                                <div class="wallpaper-admin-preview wallpaper-nebula"></div>
+                                <span>Nebula</span>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="edge">
+                                <div class="wallpaper-admin-preview wallpaper-edge"></div>
+                                <span>Edge</span>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="horizon">
+                                <div class="wallpaper-admin-preview wallpaper-horizon"></div>
+                                <span>Horizon</span>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="circuit">
+                                <div class="wallpaper-admin-preview wallpaper-circuit"></div>
+                                <span>Circuit</span>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="aurora">
+                                <div class="wallpaper-admin-preview wallpaper-aurora"></div>
+                                <span>Aurora</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="matrix">
+                                <div class="wallpaper-admin-preview wallpaper-matrix"></div>
+                                <span>Matrix</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="pulse">
+                                <div class="wallpaper-admin-preview wallpaper-pulse"></div>
+                                <span>Pulse</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="wave">
+                                <div class="wallpaper-admin-preview wallpaper-wave"></div>
+                                <span>Wave</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="cosmic">
+                                <div class="wallpaper-admin-preview wallpaper-cosmic"></div>
+                                <span>Cosmic</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="neon">
+                                <div class="wallpaper-admin-preview wallpaper-neon"></div>
+                                <span>Neon</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="synthwave">
+                                <div class="wallpaper-admin-preview wallpaper-synthwave"></div>
+                                <span>Synthwave</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="vortex">
+                                <div class="wallpaper-admin-preview wallpaper-vortex"></div>
+                                <span>Vortex</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="glitch">
+                                <div class="wallpaper-admin-preview wallpaper-glitch"></div>
+                                <span>Glitch</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                            <div class="wallpaper-admin-item" data-wallpaper="rain">
+                                <div class="wallpaper-admin-preview wallpaper-rain"></div>
+                                <span>Matrix Rain</span>
+                                <div class="animated-badge">Animated</div>
+                                <i class="fas fa-check wallpaper-check"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Effects -->
+                    <div class="settings-card">
+                        <h3><i class="fas fa-magic"></i> Desktop Effects</h3>
+                        <p class="info-text">Configure visual effects and animations. Use normal toggle to enable/disable (users can still control), or force lock to prevent user changes.</p>
+                        <div class="effects-grid-enhanced">
+                            <div class="effect-item-enhanced">
+                                <div class="effect-info">
+                                    <i class="fas fa-play-circle"></i>
+                                    <div>
+                                        <strong>Animations</strong>
+                                        <span>Enable smooth transitions and animations</span>
+                                    </div>
+                                </div>
+                                <div class="effect-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="effect-toggle" data-effect="animations" id="admin-animations" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-effect="animations" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="effect-item-enhanced">
+                                <div class="effect-info">
+                                    <i class="fas fa-glasses"></i>
+                                    <div>
+                                        <strong>Window Transparency</strong>
+                                        <span>Glass-like transparent windows</span>
+                                    </div>
+                                </div>
+                                <div class="effect-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="effect-toggle" data-effect="transparency" id="admin-transparency" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-effect="transparency" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="effect-item-enhanced">
+                                <div class="effect-info">
+                                    <i class="fas fa-wind"></i>
+                                    <div>
+                                        <strong>Background Blur</strong>
+                                        <span>Blur effect behind windows</span>
+                                    </div>
+                                </div>
+                                <div class="effect-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="effect-toggle" data-effect="blur" id="admin-blur" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-effect="blur" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="effect-item-enhanced">
+                                <div class="effect-info">
+                                    <i class="fas fa-heartbeat"></i>
+                                    <div>
+                                        <strong>Accent Pulse Glow</strong>
+                                        <span>Pulsing glow effect on active elements</span>
+                                    </div>
+                                </div>
+                                <div class="effect-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="effect-toggle" data-effect="accentPulse" id="admin-accent-pulse">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-effect="accentPulse" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="effect-item-enhanced">
+                                <div class="effect-info">
+                                    <div class="effect-icon-logo particles-logo">
+                                        <div class="particle-dot"></div>
+                                        <div class="particle-dot"></div>
+                                        <div class="particle-dot"></div>
+                                        <div class="particle-dot"></div>
+                                        <div class="particle-dot"></div>
+                                    </div>
+                                    <div>
+                                        <strong>Cyan Particles Effect</strong>
+                                        <span>Floating particle animation on desktop</span>
+                                    </div>
+                                </div>
+                                <div class="effect-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="effect-toggle" data-effect="particles" id="admin-particles">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-effect="particles" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme Presets -->
+                    <div class="settings-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <div>
+                                <h3><i class="fas fa-layer-group"></i> Theme Presets</h3>
+                                <p class="info-text">Quick apply popular theme combinations</p>
+                            </div>
+                            <button class="btn-lock" id="lock-theme-preset" title="Force Lock/Unlock Theme Preset">
+                                <i class="fas fa-lock-open"></i> Lock Theme
+                            </button>
+                        </div>
+                        <div class="theme-presets-admin-grid">
+                            <div class="theme-preset-admin" data-preset="garuda-neon">
+                                <div class="preset-preview-admin">
+                                    <div class="preset-accent-admin" style="background: #ff6ec7;"></div>
+                                    <div class="preset-wallpaper-admin wallpaper-nebula"></div>
+                                </div>
+                                <div class="preset-info">
+                                    <strong>Garuda Neon</strong>
+                                    <span>Pink & Nebula</span>
+                                </div>
+                            </div>
+                            <div class="theme-preset-admin" data-preset="violet-dream">
+                                <div class="preset-preview-admin">
+                                    <div class="preset-accent-admin" style="background: #8c7bff;"></div>
+                                    <div class="preset-wallpaper-admin wallpaper-edge"></div>
+                                </div>
+                                <div class="preset-info">
+                                    <strong>Violet Dream</strong>
+                                    <span>Purple & Edge</span>
+                                </div>
+                            </div>
+                            <div class="theme-preset-admin" data-preset="cyber-aqua">
+                                <div class="preset-preview-admin">
+                                    <div class="preset-accent-admin" style="background: #4dd0e1;"></div>
+                                    <div class="preset-wallpaper-admin wallpaper-horizon"></div>
+                                </div>
+                                <div class="preset-info">
+                                    <strong>Cyber Aqua</strong>
+                                    <span>Cyan & Horizon</span>
+                                </div>
+                            </div>
+                            <div class="theme-preset-admin" data-preset="sunset-core">
+                                <div class="preset-preview-admin">
+                                    <div class="preset-accent-admin" style="background: #ffb74d;"></div>
+                                    <div class="preset-wallpaper-admin wallpaper-edge"></div>
+                                </div>
+                                <div class="preset-info">
+                                    <strong>Sunset Core</strong>
+                                    <span>Orange & Edge</span>
+                                </div>
+                            </div>
+                            <div class="theme-preset-admin" data-preset="matrix-field">
+                                <div class="preset-preview-admin">
+                                    <div class="preset-accent-admin" style="background: #5efc82;"></div>
+                                    <div class="preset-wallpaper-admin wallpaper-circuit"></div>
+                                </div>
+                                <div class="preset-info">
+                                    <strong>Matrix Field</strong>
+                                    <span>Green & Circuit</span>
+                                </div>
+                            </div>
+                            <div class="theme-preset-admin" data-preset="aurora-drift">
+                                <div class="preset-preview-admin">
+                                    <div class="preset-accent-admin" style="background: #8c7bff;"></div>
+                                    <div class="preset-wallpaper-admin wallpaper-aurora"></div>
+                                </div>
+                                <div class="preset-info">
+                                    <strong>Aurora Drift</strong>
+                                    <span>Purple & Aurora</span>
+                                </div>
+                            </div>
+                            <div class="theme-preset-admin" data-preset="cyber-matrix">
+                                <div class="preset-preview-admin">
+                                    <div class="preset-accent-admin" style="background: #5efc82;"></div>
+                                    <div class="preset-wallpaper-admin wallpaper-matrix"></div>
+                                </div>
+                                <div class="preset-info">
+                                    <strong>Cyber Matrix</strong>
+                                    <span>Green & Matrix</span>
+                                </div>
+                            </div>
+                            <div class="theme-preset-admin" data-preset="neon-pulse">
+                                <div class="preset-preview-admin">
+                                    <div class="preset-accent-admin" style="background: #ff6ec7;"></div>
+                                    <div class="preset-wallpaper-admin wallpaper-pulse"></div>
+                                </div>
+                                <div class="preset-info">
+                                    <strong>Neon Pulse</strong>
+                                    <span>Pink & Pulse</span>
+                                </div>
+                            </div>
+                            <div class="theme-preset-admin" data-preset="dms-black">
+                                <div class="preset-preview-admin">
+                                    <div class="preset-accent-admin" style="background: linear-gradient(135deg, #1a0d0d 0%, #0d0a0a 50%, #000000 100%);"></div>
+                                    <div class="preset-wallpaper-admin wallpaper-demonslayer"></div>
+                                </div>
+                                <div class="preset-info">
+                                    <strong>DmS Black</strong>
+                                    <span>Dark Black</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="settings-card">
+                        <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn btn-secondary" id="reset-display">
+                                <i class="fas fa-undo"></i> Reset to Defaults
+                            </button>
+                            <button class="btn btn-secondary" id="preview-display">
+                                <i class="fas fa-eye"></i> Preview Changes
+                            </button>
+                            <button class="btn btn-primary" id="save-display">
+                                <i class="fas fa-save"></i> Save All Display Settings
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Note:</strong> Display customization changes are applied system-wide and will affect all users. Changes are saved automatically to localStorage.
+                    </div>
+                </section>
+
+                <!-- System Settings Section -->
+                <section id="settings-section" class="content-section">
+                    <h2><i class="fas fa-cog"></i> System Settings</h2>
+                    <div class="settings-card">
+                        <h3>General Settings</h3>
+                        <div class="form-group">
+                            <label>System Name</label>
+                            <input type="text" id="system-name" value="SudoShield OS">
+                        </div>
+                        <div class="form-group">
+                            <label>Default Theme</label>
+                            <select id="default-theme">
+                                <option value="dark">Dark Mode</option>
+                                <option value="light">Light Mode</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Boot Animation</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="boot-animation" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" id="save-settings">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Widget Manager Section -->
+                <section id="widgets-section" class="content-section">
+                    <h2><i class="fas fa-th"></i> Widget Manager</h2>
+                    <div class="settings-card">
+                        <h3>Widget Control</h3>
+                        <p class="info-text">Control widget availability and permissions. Use normal toggle to enable/disable (users can still control), or force lock to prevent user changes.</p>
+                        <div class="widget-list-enhanced">
+                            <div class="widget-item-enhanced">
+                                <div class="widget-info">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Clock Widget</span>
+                                </div>
+                                <div class="widget-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="widget-toggle" data-widget="clock" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-widget="clock" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="widget-item-enhanced">
+                                <div class="widget-info">
+                                    <i class="fas fa-cloud-sun"></i>
+                                    <span>Weather Widget</span>
+                                </div>
+                                <div class="widget-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="widget-toggle" data-widget="weather" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-widget="weather" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="widget-item-enhanced">
+                                <div class="widget-info">
+                                    <i class="fas fa-microchip"></i>
+                                    <span>System Monitor</span>
+                                </div>
+                                <div class="widget-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="widget-toggle" data-widget="stats" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-widget="stats" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="widget-item-enhanced">
+                                <div class="widget-info">
+                                    <i class="fas fa-music"></i>
+                                    <span>Music Visualizer</span>
+                                </div>
+                                <div class="widget-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="widget-toggle" data-widget="visualizer" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-widget="visualizer" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="widget-item-enhanced">
+                                <div class="widget-info">
+                                    <i class="fas fa-user-ninja"></i>
+                                    <span>Tanjiro Character Widget</span>
+                                </div>
+                                <div class="widget-controls">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="widget-toggle" data-widget="tanjiro" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <button class="btn-lock" data-widget="tanjiro" title="Force Lock/Unlock">
+                                        <i class="fas fa-lock-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- App Manager Section -->
+                <section id="apps-section" class="content-section">
+                    <h2><i class="fas fa-cubes"></i> App Manager</h2>
+                    <div class="settings-card">
+                        <h3>Manage Applications</h3>
+                        <p class="info-text">Enable/disable apps and control their visibility in the system.</p>
+                        <div class="app-grid">
+                            <!-- File Manager -->
+                            <div class="app-manager-card">
+                                <div class="app-header">
+                                    <i class="fas fa-folder app-icon" style="color: #f59e0b;"></i>
+                                    <div class="app-details">
+                                        <h4>File Manager</h4>
+                                        <span class="app-description">Browse and manage files</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="filemanager" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="filemanager" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Settings -->
+                            <div class="app-manager-card">
+                                <div class="app-header">
+                                    <i class="fas fa-cog app-icon" style="color: #8b5cf6;"></i>
+                                    <div class="app-details">
+                                        <h4>Settings</h4>
+                                        <span class="app-description">System configuration</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="settings" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="settings" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Terminal -->
+                            <div class="app-manager-card">
+                                <div class="app-header">
+                                    <i class="fas fa-terminal app-icon" style="color: #10b981;"></i>
+                                    <div class="app-details">
+                                        <h4>Terminal</h4>
+                                        <span class="app-description">Command line interface</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="terminal" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="terminal" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Browser -->
+                            <div class="app-manager-card">
+                                <div class="app-header">
+                                    <i class="fas fa-globe app-icon" style="color: #3b82f6;"></i>
+                                    <div class="app-details">
+                                        <h4>Browser</h4>
+                                        <span class="app-description">Web browser application</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="browser" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="browser" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Premium Browser -->
+                            <div class="app-manager-card premium">
+                                <div class="app-header">
+                                    <i class="fas fa-crown app-icon" style="color: #f59e0b;"></i>
+                                    <div class="app-details">
+                                        <h4>Premium Browser</h4>
+                                        <span class="app-description">Enhanced browser with ad-block</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="premiumbrowser" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="premiumbrowser" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- YouTube -->
+                            <div class="app-manager-card">
+                                <div class="app-header">
+                                    <i class="fab fa-youtube app-icon" style="color: #ef4444;"></i>
+                                    <div class="app-details">
+                                        <h4>YouTube</h4>
+                                        <span class="app-description">Video streaming platform</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="youtube" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="youtube" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- YouTube Premium -->
+                            <div class="app-manager-card premium">
+                                <div class="app-header">
+                                    <i class="fab fa-youtube app-icon" style="color: #ef4444;"></i>
+                                    <div class="app-details">
+                                        <h4>YouTube Premium</h4>
+                                        <span class="app-description">Ad-free YouTube experience</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="youtubepremium" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="youtubepremium" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Facebook -->
+                            <div class="app-manager-card">
+                                <div class="app-header">
+                                    <i class="fab fa-facebook app-icon" style="color: #1877f2;"></i>
+                                    <div class="app-details">
+                                        <h4>Facebook</h4>
+                                        <span class="app-description">Social media platform</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="facebook" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="facebook" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Canva / Slides -->
+                            <div class="app-manager-card">
+                                <div class="app-header">
+                                    <i class="fas fa-file-powerpoint app-icon" style="color: #f4b400;"></i>
+                                    <div class="app-details">
+                                        <h4>Canva (Slides)</h4>
+                                        <span class="app-description">Create presentations and designs</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="canva" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="canva" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Games -->
+                            <div class="app-manager-card">
+                                <div class="app-header">
+                                    <i class="fas fa-gamepad app-icon" style="color: #ec4899;"></i>
+                                    <div class="app-details">
+                                        <h4>Games</h4>
+                                        <span class="app-description">Gaming platform</span>
+                                    </div>
+                                </div>
+                                <div class="app-controls">
+                                    <div class="control-item">
+                                        <span>Enable App</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-toggle" data-app="games" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-item">
+                                        <span>Show in Menu</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="app-visibility-toggle" data-app="games" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-info" style="margin-top: 20px;">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Note:</strong> Disabled apps cannot be opened by users. Hidden apps are not visible in the start menu but can still be accessed if the user knows the app name.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- User Management Section -->
+                <section id="users-section" class="content-section">
+                    <h2><i class="fas fa-users"></i> User Management</h2>
+                    <div class="settings-card">
+                        <h3>Admin Users</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Last Login</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><i class="fas fa-user-shield"></i> sudoshield</td>
+                                    <td><span class="badge badge-admin">Admin</span></td>
+                                    <td id="last-login">Just now</td>
+                                    <td>
+                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Security Section -->
+                <section id="security-section" class="content-section">
+                    <h2><i class="fas fa-shield-alt"></i> Security Settings</h2>
+                    <div class="settings-card">
+                        <h3>Change Admin Password</h3>
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="current-password">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" id="confirm-password">
+                        </div>
+                        <button class="btn btn-primary" id="change-password">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Security Options</h3>
+                        <div class="form-group">
+                            <label>Session Timeout (minutes)</label>
+                            <input type="number" id="session-timeout" value="30" min="5" max="1440">
+                        </div>
+                        <button class="btn btn-primary" id="save-security">
+                            <i class="fas fa-save"></i> Save Security Settings
+                        </button>
+                    </div>
+                    <div class="settings-card">
+                        <h3>System Actions</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
+                            <button class="btn btn-secondary" id="clear-cache">
+                                <i class="fas fa-broom"></i> Clear Cache
+                            </button>
+                            <button class="btn btn-secondary" id="reset-widgets">
+                                <i class="fas fa-redo"></i> Reset Widget Positions
+                            </button>
+                            <button class="btn btn-danger" id="clear-all-data">
+                                <i class="fas fa-trash-alt"></i> Clear All Data
+                            </button>
+                        </div>
+                        <h4 style="margin-bottom: 10px; font-size: 16px;">Backup & Restore</h4>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn btn-primary" id="export-data">
+                                <i class="fas fa-download"></i> Export Settings
+                            </button>
+                            <label class="btn btn-primary" for="import-file" style="cursor: pointer; margin: 0;">
+                                <i class="fas fa-upload"></i> Import Settings
+                            </label>
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
