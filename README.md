@@ -113,7 +113,6 @@ sudoshield-web-os/
 │   └── effects.css                     # Effects styles
 │
 ├── SUDOSHIELD_N8N_WORKFLOW.json        # Sample n8n workflow
-├── system_prompt.txt                   # AI system prompt
 └── README.md                           # This file
 ```
 
