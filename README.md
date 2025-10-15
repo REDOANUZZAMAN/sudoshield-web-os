@@ -572,10 +572,9 @@ Contributions are welcome! Please follow these steps:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
-
-**SudoShield OS Contributors**
-- GitHub: [yourusername](https://github.com/yourusername)
-- Issues: [Report bugs here](https://github.com/yourusername/sudoshield-web-os/issues)
+- GitHub: [@redoanuzzaman](https://github.com/redoanuzzaman)
+- Email: redoanuzzaman707@gmail.com
+- Website: [redoan.dev](https://redoan.dev)
 
 ## Support
 
