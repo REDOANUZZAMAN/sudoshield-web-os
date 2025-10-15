@@ -40,7 +40,7 @@ A feature-rich browser-based Web OS that delivers a desktop-like experience dire
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 - Static HTTP server (recommended, but not required)
 - No build tools or external dependencies needed
-
+### The default login credentials for SudoShield OS are: Username – sudoshield, Password – Sudoos12
 ### Installation
 
 ```bash
