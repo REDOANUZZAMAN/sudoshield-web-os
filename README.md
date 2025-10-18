@@ -1,6 +1,6 @@
 # SudoShield Web OS
 
-A feature-rich browser-based Web OS that delivers a desktop-like experience directly in your browser. Includes a virtual filesystem, window manager, built-in apps, AI integration via n8n webhooks, visual effects, and an extensible terminal. Everything runs client-side with zero external dependencies
+A feature-rich browser-based Web OS that delivers a desktop-like experience directly in your browser. Includes a virtual filesystem, window manager, built-in apps, AI integration via n8n webhooks, visual effects, and an extensible terminal. Everything runs client-side with zero external dependencies.
 
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
