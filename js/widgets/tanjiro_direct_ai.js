@@ -4,7 +4,7 @@
     
     class TanjiroDirectAI {
         constructor() {
-            this.apiKey = 'sk_04f4aa2d4fe8f84d12f25ad4ff1c429de4348916dec0331c';
+            this.apiKey = 'Your api key(11 lab)';
             this.agentId = 'agent_7401k5h2achneqqrpbbgrxrvh71d';
             this.voiceId = 'T8aK56J4KvNPVFuqu7nT'; // updated voice id
             
